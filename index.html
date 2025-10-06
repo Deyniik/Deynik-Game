@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tileman.io - Игровой портал</title>
+    <title>Deynik Game</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
@@ -99,41 +99,36 @@
             flex-shrink: 0;
             position: relative;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
         }
         
-        .header-center {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-        
         h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #1DB954;
             text-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
             letter-spacing: 2px;
-            margin-bottom: 5px;
         }
         
-        .subtitle {
-            color: #b3b3b3;
-            font-size: 0.9rem;
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 15px;
+            overflow: hidden;
         }
         
-        .content {
+        .game-section {
             display: flex;
             justify-content: space-between;
             align-items: stretch;
             flex: 1;
             gap: 15px;
-            margin-bottom: 10px;
             overflow: hidden;
         }
         
         .side-panel {
-            flex: 1;
+            flex: 0.9;
             background: #191414;
             border-radius: 12px;
             padding: 15px;
@@ -141,13 +136,20 @@
             flex-direction: column;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            min-width: 250px;
+            min-width: 240px;
             overflow: hidden;
             transition: all 0.3s ease;
         }
         
-        .game-wrapper {
+        .game-area {
             flex: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .game-wrapper {
+            flex: 1;
             background: #191414;
             border-radius: 12px;
             overflow: hidden;
@@ -157,6 +159,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 500px;
         }
         
         .game-frame {
@@ -164,6 +167,16 @@
             height: 100%;
             border: none;
             background: #000;
+        }
+        
+        .player-section {
+            background: #191414;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            height: auto;
+            display: none;
         }
         
         .panel-section {
@@ -195,27 +208,6 @@
         }
         
         .stat-value {
-            color: #1DB954;
-            font-weight: bold;
-        }
-        
-        .controls {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-        
-        .control {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 0;
-        }
-        
-        .key {
-            background: rgba(255,255,255,0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 12px;
             color: #1DB954;
             font-weight: bold;
         }
@@ -731,6 +723,219 @@
             transform: scale(1.05);
             box-shadow: 0 0 8px rgba(29, 185, 84, 0.5);
         }
+
+        /* Плеер */
+        .player-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+        
+        .player-left {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .player-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #1DB954 0%, #191414 100%);
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            box-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
+            transition: transform 0.3s ease;
+        }
+        
+        .player-icon.playing {
+            animation: rotate 10s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .station-text {
+            flex: 1;
+        }
+        
+        .station-text h2 {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+            color: #1DB954;
+        }
+        
+        .station-text p {
+            color: #B3B3B3;
+            font-size: 0.9rem;
+        }
+        
+        .player-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            gap: 10px;
+        }
+        
+        .player-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex: 1;
+            gap: 15px;
+        }
+        
+        .btn {
+            background: rgba(50, 50, 50, 0.8);
+            border: none;
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:hover {
+            background: rgba(29, 185, 84, 0.4);
+            transform: scale(1.05);
+        }
+        
+        .btn-play {
+            background: linear-gradient(135deg, #1DB954 0%, #191414 100%);
+            width: 50px;
+            height: 50px;
+            font-size: 1.3rem;
+            box-shadow: 0 0 12px rgba(29, 185, 84, 0.6);
+        }
+        
+        .btn-play:hover {
+            box-shadow: 0 0 16px rgba(29, 185, 84, 0.8);
+        }
+        
+        .btn-like-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .likes-count-bottom {
+            font-size: 0.9rem;
+            color: #B3B3B3;
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .btn-like {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            background: rgba(50, 50, 50, 0.8);
+            border: none;
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-like i {
+            font-size: 1.3rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-like.active i {
+            color: white;
+        }
+        
+        .btn-like:hover {
+            background: rgba(29, 185, 84, 0.4);
+            transform: scale(1.05);
+        }
+        
+        .player-bottom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 250px;
+            max-width: 100%;
+        }
+        
+        .volume-icon {
+            font-size: 1.1rem;
+            color: #1DB954;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .volume-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: rgba(80, 80, 80, 0.7);
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+        }
+        
+        .volume-slider:hover {
+            background: rgba(100, 100, 100, 0.8);
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #1DB954;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 0 4px rgba(0,0,0,0.5);
+        }
+        
+        .volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 6px rgba(29, 185, 84, 0.8);
+        }
+        
+        .volume-slider::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #1DB954;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 0 4px rgba(0,0,0,0.5);
+        }
         
         .crt-effect {
             position: relative;
@@ -763,27 +968,8 @@
             opacity: 0.1;
         }
         
-        .theme-switcher {
-            background: rgba(40, 40, 40, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .theme-switcher:hover {
-            background: rgba(29, 185, 84, 0.3);
-            transform: scale(1.05);
-        }
-        
         @media (max-width: 900px) {
-            .content {
+            .game-section {
                 flex-direction: column;
             }
             
@@ -815,164 +1001,214 @@
     <!-- Экран загрузки -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-gif"></div>
-        <div class="loading-text">Tileman.io</div>
+        <div class="loading-text">Deynik Game</div>
     </div>
     
     <div class="container" id="mainContainer">
         <header>
-            <div class="header-center">
-                <div>
-                    <h1>Tileman.io</h1>
-                    <div class="subtitle">Захватывающая .io игра - захватывай территорию и становись больше!</div>
-                </div>
-            </div>
-            <div>
-                <button class="theme-switcher" id="themeSwitcher">
-                    <i class="fas fa-palette"></i> Ретро
-                </button>
-            </div>
+            <h1>Deynik Game</h1>
         </header>
         
-        <div class="content">
-            <div class="side-panel crt-effect">
-                <div class="panel-section">
-                    <h3><i class="fas fa-chart-line"></i> Статистика игры</h3>
-                    <div class="stats">
-                        <div class="stat">
-                            <span>Игроков онлайн:</span>
-                            <span class="stat-value" id="onlineCount">1,223</span>
+        <div class="main-content">
+            <div class="game-section">
+                <div class="side-panel crt-effect">
+                    <div class="panel-section">
+                        <h3><i class="fas fa-chart-line"></i> Статистика игры</h3>
+                        <div class="stats">
+                            <div class="stat">
+                                <span>Игроков онлайн:</span>
+                                <span class="stat-value" id="onlineCount">1,223</span>
+                            </div>
+                            <div class="stat">
+                                <span>Ваш рейтинг:</span>
+                                <span class="stat-value">-#</span>
+                            </div>
+                            <div class="stat">
+                                <span>Лучший счет:</span>
+                                <span class="stat-value">0</span>
+                            </div>
+                            <div class="stat">
+                                <span>Захвачено клеток:</span>
+                                <span class="stat-value">0</span>
+                            </div>
                         </div>
-                        <div class="stat">
-                            <span>Ваш рейтинг:</span>
-                            <span class="stat-value">-#</span>
+                    </div>
+                    
+                    <div class="panel-section">
+                        <h3><i class="fas fa-music"></i> Радиостанции</h3>
+                        <ul class="station-list">
+                            <li class="active" data-station="lofi">
+                                <div style="display: flex; align-items: center;">
+                                    <span class="station-icon"><i class="fas fa-moon"></i></span> LoFi Girl
+                                </div>
+                                <div class="station-likes">
+                                    <span class="likes-count">0</span> <i class="fas fa-heart"></i>
+                                </div>
+                            </li>
+                            <li data-station="minecraft">
+                                <div style="display: flex; align-items: center;">
+                                    <span class="station-icon"><i class="fas fa-cube"></i></span> MINECRAFT Lo Fi
+                                </div>
+                                <div class="station-likes">
+                                    <span class="likes-count">0</span> <i class="fas fa-heart"></i>
+                                </div>
+                            </li>
+                            <li data-station="chillhop">
+                                <div style="display: flex; align-items: center;">
+                                    <span class="station-icon"><i class="fas fa-moon"></i></span> Chillhop Radio
+                                </div>
+                                <div class="station-likes">
+                                    <span class="likes-count">0</span> <i class="fas fa-heart"></i>
+                                </div>
+                            </li>
+                            <li data-station="gaga">
+                                <div style="display: flex; align-items: center;">
+                                    <span class="station-icon"><i class="fas fa-paw"></i></span> Lady Gaga Radio
+                                </div>
+                                <div class="station-likes">
+                                    <span class="likes-count">0</span> <i class="fas fa-heart"></i>
+                                </div>
+                            </li>
+                            <li data-station="kissint">
+                                <div style="display: flex; align-items: center;">
+                                    <span class="station-icon"><i class="fas fa-heart"></i></span> KISS FM
+                                </div>
+                                <div class="station-likes">
+                                    <span class="likes-count">0</span> <i class="fas fa-heart"></i>
+                                </div>
+                            </li>
+                            <li data-station="jazz">
+                                <div style="display: flex; align-items: center;">
+                                    <span class="station-icon"><i class="fas fa-music"></i></span> Jazz24
+                                </div>
+                                <div class="station-likes">
+                                    <span class="likes-count">0</span> <i class="fas fa-heart"></i>
+                                </div>
+                            </li>
+                            <li data-station="lofihiphop">
+                                <div style="display: flex; align-items: center;">
+                                    <span class="station-icon"><i class="fas fa-headphones"></i></span> LoFi Hip Hop
+                                </div>
+                                <div class="station-likes">
+                                    <span class="likes-count">0</span> <i class="fas fa-heart"></i>
+                                </div>
+                            </li>
+                            <li data-station="halloween">
+                                <div style="display: flex; align-items: center;">
+                                    <span class="station-icon"><i class="fas fa-ghost"></i></span> Halloween Radio
+                                </div>
+                                <div class="station-likes">
+                                    <span class="likes-count">0</span> <i class="fas fa-heart"></i>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="game-area">
+                    <div class="game-wrapper crt-effect">
+                        <!-- Пытаемся встроить игру через iframe -->
+                        <iframe 
+                            src="https://www.crazygames.ru/embed/tileman-io" 
+                            class="game-frame"
+                            width="100%" 
+                            height="100%"
+                            allow="fullscreen"
+                            frameborder="0">
+                        </iframe>
+                    </div>
+                    
+                    <!-- Плеер под игрой -->
+                    <div class="player-section crt-effect" id="player-section">
+                        <div class="player-container">
+                            <div class="player-left">
+                                <div class="player-icon" id="player-icon">
+                                    <i class="fas fa-moon"></i>
+                                </div>
+                                <div class="station-text">
+                                    <h2 id="player-station">LoFi Girl</h2>
+                                    <p id="player-description">Легендарный лоу-фай стрим без авторских прав</p>
+                                </div>
+                            </div>
+                            
+                            <div class="player-center">
+                                <button class="btn" id="prev-btn"><i class="fas fa-step-backward"></i></button>
+                                <button class="btn btn-play" id="play-btn"><i class="fas fa-play"></i></button>
+                                <button class="btn" id="next-btn"><i class="fas fa-step-forward"></i></button>
+                            </div>
+                            
+                            <div class="player-buttons">
+                                <div class="btn-like-container">
+                                    <span class="likes-count-bottom" id="likes-count-bottom">0</span>
+                                    <button class="btn-like" id="like-btn" title="Лайкнуть станцию">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="stat">
-                            <span>Лучший счет:</span>
-                            <span class="stat-value">0</span>
-                        </div>
-                        <div class="stat">
-                            <span>Захвачено клеток:</span>
-                            <span class="stat-value">0</span>
+                        
+                        <div class="player-bottom">
+                            <div class="volume-control">
+                                <span class="volume-icon"><i class="fas fa-volume-down"></i></span>
+                                <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="70">
+                                <span class="volume-icon"><i class="fas fa-volume-up"></i></span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="panel-section">
-                    <h3><i class="fas fa-gamepad"></i> Управление</h3>
-                    <div class="controls">
-                        <div class="control">
-                            <span>Движение:</span>
-                            <span class="key">WASD</span>
+                <div class="side-panel crt-effect">
+                    <!-- ЧАТ С КНОПКОЙ ЭМОДЗИ И ГИФОК -->
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            <i class="fas fa-comments"></i>
+                            <h3>Игровой чат</h3>
                         </div>
-                        <div class="control">
-                            <span>Стрельба:</span>
-                            <span class="key">ПКМ</span>
-                        </div>
-                        <div class="control">
-                            <span>Разделение:</span>
-                            <span class="key">SPACE</span>
-                        </div>
-                        <div class="control">
-                            <span>Питание:</span>
-                            <span class="key">E</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="panel-section">
-                    <h3><i class="fas fa-music"></i> Радиостанции</h3>
-                    <ul class="station-list">
-                        <li class="active" data-station="lofi">
-                            <div style="display: flex; align-items: center;">
-                                <span class="station-icon"><i class="fas fa-moon"></i></span> LoFi Girl
-                            </div>
-                            <div class="station-likes">
-                                <span class="likes-count">0</span> <i class="fas fa-heart"></i>
-                            </div>
-                        </li>
-                        <li data-station="minecraft">
-                            <div style="display: flex; align-items: center;">
-                                <span class="station-icon"><i class="fas fa-cube"></i></span> MINECRAFT Lo Fi
-                            </div>
-                            <div class="station-likes">
-                                <span class="likes-count">0</span> <i class="fas fa-heart"></i>
-                            </div>
-                        </li>
-                        <li data-station="chillhop">
-                            <div style="display: flex; align-items: center;">
-                                <span class="station-icon"><i class="fas fa-moon"></i></span> Chillhop Radio
-                            </div>
-                            <div class="station-likes">
-                                <span class="likes-count">0</span> <i class="fas fa-heart"></i>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="game-wrapper crt-effect">
-                <!-- Пытаемся встроить игру через iframe -->
-                <iframe 
-                    src="https://www.crazygames.ru/embed/tileman-io" 
-                    class="game-frame"
-                    width="100%" 
-                    height="100%"
-                    allow="fullscreen"
-                    frameborder="0">
-                </iframe>
-            </div>
-            
-            <div class="side-panel crt-effect">
-                <!-- ЧАТ С КНОПКОЙ ЭМОДЗИ И ГИФОК -->
-                <div class="chat-container">
-                    <div class="chat-header">
-                        <i class="fas fa-comments"></i>
-                        <h3>Игровой чат</h3>
-                    </div>
-                    <div class="chat-messages" id="chat-messages">
-                        <div class="message">
-                            <span class="message-user">Система:</span>
-                            Добро пожаловать в игровой чат Tileman.io!
-                            <span class="message-time">только что</span>
-                        </div>
-                    </div>
-                    <div class="chat-input-container" id="chat-input-container">
-                        <button class="emoji-btn" id="emoji-btn">
-                            <i class="far fa-smile"></i>
-                        </button>
-                        <button class="gif-btn" id="gif-btn">
-                            GIF
-                        </button>
-                        <input type="text" class="chat-input" id="chat-input" placeholder="Введите сообщение..." maxlength="200">
-                        <button class="chat-send-btn" id="chat-send-btn" disabled>
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                        
-                        <!-- ОКНО ЭМОДЗИ С ПОИСКОМ -->
-                        <div class="emoji-picker" id="emoji-picker">
-                            <input type="text" class="emoji-search" id="emoji-search" placeholder="Поиск эмодзи...">
-                            <div class="emoji-categories">
-                                <button class="emoji-category active" data-category="all">Все</button>
-                                <button class="emoji-category" data-category="smileys">😀</button>
-                                <button class="emoji-category" data-category="hearts">❤️</button>
-                                <button class="emoji-category" data-category="objects">🔔</button>
-                            </div>
-                            <div class="emoji-grid" id="emoji-grid">
-                                <!-- Эмодзи будут добавлены через JavaScript -->
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="message">
+                                <span class="message-user">Система:</span>
+                                Добро пожаловать в игровой чат Deynik Game!
+                                <span class="message-time">только что</span>
                             </div>
                         </div>
-                        
-                        <!-- ОКНО ПОИСКА GIF -->
-                        <div class="gif-picker" id="gif-picker">
-                            <input type="text" class="gif-search" id="gif-search" placeholder="Поиск GIF...">
-                            <div class="gif-trending">
-                                <button class="gif-trending-btn" data-term="funny">Смешные</button>
-                                <button class="gif-trending-btn" data-term="game">Игры</button>
-                                <button class="gif-trending-btn" data-term="victory">Победа</button>
-                                <button class="gif-trending-btn" data-term="dance">Танцы</button>
+                        <div class="chat-input-container" id="chat-input-container">
+                            <button class="emoji-btn" id="emoji-btn">
+                                <i class="far fa-smile"></i>
+                            </button>
+                            <button class="gif-btn" id="gif-btn">
+                                GIF
+                            </button>
+                            <input type="text" class="chat-input" id="chat-input" placeholder="Введите сообщение..." maxlength="200">
+                            <button class="chat-send-btn" id="chat-send-btn" disabled>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                            
+                            <!-- ОКНО ЭМОДЗИ С ПОИСКОМ -->
+                            <div class="emoji-picker" id="emoji-picker">
+                                <input type="text" class="emoji-search" id="emoji-search" placeholder="Поиск эмодзи...">
+                                <div class="emoji-categories">
+                                    <button class="emoji-category active" data-category="all">Все</button>
+                                    <button class="emoji-category" data-category="smileys">😀</button>
+                                    <button class="emoji-category" data-category="hearts">❤️</button>
+                                    <button class="emoji-category" data-category="objects">🔔</button>
+                                </div>
+                                <div class="emoji-grid" id="emoji-grid">
+                                    <!-- Эмодзи будут добавлены через JavaScript -->
+                                </div>
                             </div>
-                            <div class="gif-results" id="gif-results">
-                                <!-- GIF будут добавлены через JavaScript -->
+                            
+                            <!-- ОКНО ПОИСКА GIF -->
+                            <div class="gif-picker" id="gif-picker">
+                                <input type="text" class="gif-search" id="gif-search" placeholder="Поиск GIF...">
+                                <div class="gif-trending">
+                                    <button class="gif-trending-btn" data-term="funny">Смешные</button>
+                                    <button class="gif-trending-btn" data-term="game">Игры</button>
+                                    <button class="gif-trending-btn" data-term="victory">Победа</button>
+                                    <button class="gif-trending-btn" data-term="dance">Танцы</button>
+                                </div>
+                                <div class="gif-results" id="gif-results">
+                                    <!-- GIF будут добавлены через JavaScript -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -997,6 +1233,85 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
+        // Объект с радиостанциями
+        const radioStations = {
+            lofi: {
+                name: "LoFi Girl",
+                url: "https://play.streamafrica.net/lofiradio",
+                description: "Легендарный лоу-фай стрим без авторских прав",
+                currentTrack: "Chill Beats",
+                currentArtist: "LoFi Artist",
+                quality: "192kbps",
+                icon: "fas fa-moon"
+            },
+            minecraft: {
+                name: "MINECRAFT Lo Fi",
+                url: "https://stream-173.zeno.fm/kp41ftw3zehvv",
+                description: "Уютные Minecraft саундтреки в Lo-Fi аранжировке",
+                currentTrack: "Minecraft Ambience",
+                currentArtist: "C418 Lo-Fi Remix",
+                quality: "128kbps",
+                icon: "fas fa-cube"
+            },
+            chillhop: {
+                name: "Chillhop Radio",
+                url: "https://stream-178.zeno.fm/f3wvbbqmdg8uv",
+                description: "Расслабляющие биты для работы и отдыха без авторских прав",
+                currentTrack: "Chill Beats",
+                currentArtist: "Chillhop Music",
+                quality: "128kbps",
+                icon: "fas fa-moon"
+            },
+            gaga: {
+                name: "Lady Gaga Radio",
+                url: "https://2.mystreaming.net/er/ladygagahits/icecast.audio",
+                description: "Всем молчать! Играет мать!",
+                currentTrack: "Lady Gaga Hits",
+                currentArtist: "Lady Gaga",
+                quality: "128kbps",
+                icon: "fas fa-paw"
+            },
+            kissint: {
+                name: "KISS FM",
+                url: "https://cloud.revma.ihrhls.com/zc185",
+                description: "Лучшие мировые хиты в отличном качестве",
+                currentTrack: "Популярные хиты",
+                currentArtist: "KISS FM",
+                quality: "128kbps",
+                icon: "fas fa-heart"
+            },
+            jazz: {
+                name: "Jazz24",
+                url: "https://knkx-live-a.edge.audiocdn.com/6285_128k",
+                description: "Лучшие джазовые композиции",
+                currentTrack: "Smooth Jazz",
+                currentArtist: "Jazz Master",
+                quality: "192kbps",
+                icon: "fas fa-music"
+            },
+            lofihiphop: {
+                name: "LoFi Hip Hop",
+                url: "https://stream-158.zeno.fm/0r0xa792kwzuv",
+                description: "Лучшие хип-хоп биты без авторских прав",
+                currentTrack: "Hip Hop Beats",
+                currentArtist: "LoFi Artist",
+                quality: "128kbps",
+                icon: "fas fa-headphones"
+            },
+            halloween: {
+                name: "Halloween Radio",
+                url: "https://radio1.streamserver.link:8000/hrm-aac",
+                description: "Музыка для Хэллоуина и ужастиков",
+                currentTrack: "Spooky Sounds",
+                currentArtist: "Halloween FM",
+                quality: "128kbps",
+                icon: "fas fa-ghost"
+            }
+        };
+
+        // Массив ID станций для навигации
+        const stationIds = Object.keys(radioStations);
+
         // Эмодзи для поиска
         const emojiCategories = {
             all: ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🤩", "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣", "😖", "😫", "😩", "🥺", "😢", "😭", "😤", "😠", "😡", "🤬", "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🤗", "🤔", "🤭", "🤫", "🤥", "😶", "😐", "😑", "😬", "🙄", "😯", "😦", "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵", "🤐", "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠", "😈", "👿", "👹", "👺", "🤡", "💩", "👻", "💀", "☠️", "👽", "👾", "🤖", "🎃"],
@@ -1017,7 +1332,6 @@
         function initApp() {
             console.log('Игровой портал запущен!');
             
-            const themeSwitcher = document.getElementById('themeSwitcher');
             const chatInput = document.getElementById('chat-input');
             const chatSendBtn = document.getElementById('chat-send-btn');
             const chatMessages = document.getElementById('chat-messages');
@@ -1031,36 +1345,136 @@
             const gifResults = document.getElementById('gif-results');
             const emojiCategoryBtns = document.querySelectorAll('.emoji-category');
             const gifTrendingBtns = document.querySelectorAll('.gif-trending-btn');
+            const stationItems = document.querySelectorAll('.station-list li');
+            const playerSection = document.getElementById('player-section');
+            const playButton = document.getElementById('play-btn');
+            const prevButton = document.getElementById('prev-btn');
+            const nextButton = document.getElementById('next-btn');
+            const likeButton = document.getElementById('like-btn');
+            const volumeSlider = document.getElementById('volume-slider');
             
             let currentTheme = 'retro';
             let chatUnsubscribe = null;
             let userNickname = localStorage.getItem('userNickname') || 'Игрок';
+            let isPlaying = false;
+            let audio = null;
+            let currentStationIndex = 0;
+            let currentStation = stationIds[currentStationIndex];
             
             // Инициализация
             loadEmojis();
             loadTrendingGifs();
             loadChatHistory();
-            
-            // Переключение темы
-            themeSwitcher.addEventListener('click', function() {
-                if (currentTheme === 'retro') {
-                    document.body.className = 'cyber-theme';
-                    currentTheme = 'cyber';
-                    themeSwitcher.innerHTML = '<i class="fas fa-palette"></i> Кибер';
-                } else if (currentTheme === 'cyber') {
-                    document.body.className = 'matrix-theme';
-                    currentTheme = 'matrix';
-                    themeSwitcher.innerHTML = '<i class="fas fa-palette"></i> Матрица';
-                } else {
-                    document.body.className = 'retro-theme';
-                    currentTheme = 'retro';
-                    themeSwitcher.innerHTML = '<i class="fas fa-palette"></i> Ретро';
-                }
-            });
+            updateStationInfo();
+            updateVolumeIcon();
             
             // Обновление онлайн-статистики
             updateOnlineCount();
             setInterval(updateOnlineCount, 10000);
+            
+            // Обработчики радиостанций
+            stationItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const stationId = this.getAttribute('data-station');
+                    currentStationIndex = stationIds.indexOf(stationId);
+                    currentStation = stationId;
+                    
+                    stationItems.forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    updateStationInfo();
+                    playerSection.style.display = 'block';
+                    
+                    if (isPlaying) {
+                        playStation();
+                    }
+                });
+            });
+            
+            // Обработчик кнопки воспроизведения
+            playButton.addEventListener('click', function() {
+                isPlaying = !isPlaying;
+                
+                if (isPlaying) {
+                    playButton.innerHTML = '<i class="fas fa-pause"></i>';
+                    document.getElementById('player-icon').classList.add('playing');
+                    playStation();
+                } else {
+                    playButton.innerHTML = '<i class="fas fa-play"></i>';
+                    document.getElementById('player-icon').classList.remove('playing');
+                    if (audio) audio.pause();
+                }
+            });
+            
+            // Обработчик кнопки "Предыдущая станция"
+            prevButton.addEventListener('click', function() {
+                currentStationIndex = (currentStationIndex - 1 + stationIds.length) % stationIds.length;
+                currentStation = stationIds[currentStationIndex];
+                updateStationInfo();
+                updateActiveStation();
+                if (isPlaying) playStation();
+            });
+            
+            // Обработчик кнопки "Следующая станция"
+            nextButton.addEventListener('click', function() {
+                currentStationIndex = (currentStationIndex + 1) % stationIds.length;
+                currentStation = stationIds[currentStationIndex];
+                updateStationInfo();
+                updateActiveStation();
+                if (isPlaying) playStation();
+            });
+            
+            // Обработчик громкости
+            volumeSlider.addEventListener('input', function() {
+                if (audio) {
+                    audio.volume = this.value / 100;
+                }
+                updateVolumeIcon();
+            });
+            
+            function playStation() {
+                if (audio) audio.pause();
+                audio = new Audio(radioStations[currentStation].url);
+                audio.volume = volumeSlider.value / 100;
+                audio.play().catch(error => {
+                    console.error('Ошибка воспроизведения:', error);
+                    isPlaying = false;
+                    playButton.innerHTML = '<i class="fas fa-play"></i>';
+                    document.getElementById('player-icon').classList.remove('playing');
+                });
+            }
+            
+            function updateStationInfo() {
+                const station = radioStations[currentStation];
+                document.getElementById('player-station').textContent = station.name;
+                document.getElementById('player-description').textContent = station.description;
+                document.getElementById('player-icon').innerHTML = `<i class="${station.icon}"></i>`;
+            }
+            
+            function updateActiveStation() {
+                stationItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-station') === currentStation) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+            
+            function updateVolumeIcon() {
+                const volume = volumeSlider.value;
+                const volumeIcons = document.querySelectorAll('.volume-icon i');
+                volumeIcons.forEach(icon => {
+                    if (volume == 0) {
+                        icon.className = 'fas fa-volume-mute';
+                    } else if (volume < 50) {
+                        icon.className = 'fas fa-volume-down';
+                    } else {
+                        icon.className = 'fas fa-volume-up';
+                    }
+                });
+            }
             
             // Загрузка эмодзи для чата
             function loadEmojis() {
@@ -1195,7 +1609,8 @@
                 chatSendBtn.disabled = true;
                 chatSendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
                 
-                db.collection('gameChat').add(message)
+                // Используем ту же коллекцию чата что и в Deynik Radio
+                db.collection('chat').add(message)
                     .then(() => {
                         // GIF отправлен
                     })
@@ -1205,11 +1620,11 @@
                     });
             }
 
-            // Функции для работы с чатом
+            // Функции для работы с чатом - используем ту же коллекцию что и в Deynik Radio
             function loadChatHistory() {
                 if (chatUnsubscribe) chatUnsubscribe();
                 
-                chatUnsubscribe = db.collection('gameChat')
+                chatUnsubscribe = db.collection('chat')
                     .orderBy('timestamp', 'desc')
                     .limit(50)
                     .onSnapshot((snapshot) => {
@@ -1284,7 +1699,8 @@
                 chatSendBtn.disabled = true;
                 chatSendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
                 
-                db.collection('gameChat').add(message)
+                // Используем ту же коллекцию чата что и в Deynik Radio
+                db.collection('chat').add(message)
                     .then(() => {
                         chatInput.value = '';
                     })
