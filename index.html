@@ -99,8 +99,22 @@
             flex-shrink: 0;
             position: relative;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            justify-content: flex-start;
+        }
+        
+        .header-center {
+            flex: 2;
+            display: flex;
+            justify-content: center;
         }
         
         h1 {
@@ -108,6 +122,25 @@
             color: #1DB954;
             text-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
             letter-spacing: 2px;
+        }
+        
+        .google-login-btn {
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .google-login-btn:hover {
+            background: rgba(29, 185, 84, 0.3);
+            transform: scale(1.05);
         }
         
         .main-content {
@@ -176,7 +209,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             height: auto;
-            display: none;
         }
         
         .panel-section {
@@ -1006,7 +1038,16 @@
     
     <div class="container" id="mainContainer">
         <header>
-            <h1>Deynik Game</h1>
+            <div class="header-left">
+                <div id="auth-section">
+                    <button class="google-login-btn" id="googleLoginBtn">
+                        <i class="fab fa-google"></i> Войти через Google
+                    </button>
+                </div>
+            </div>
+            <div class="header-center">
+                <h1>Deynik Game</h1>
+            </div>
         </header>
         
         <div class="main-content">
@@ -1118,16 +1159,16 @@
                         </iframe>
                     </div>
                     
-                    <!-- Плеер под игрой -->
+                    <!-- Плеер под игрой - всегда открыт -->
                     <div class="player-section crt-effect" id="player-section">
                         <div class="player-container">
                             <div class="player-left">
                                 <div class="player-icon" id="player-icon">
-                                    <i class="fas fa-moon"></i>
+                                    <i class="fas fa-music"></i>
                                 </div>
                                 <div class="station-text">
-                                    <h2 id="player-station">LoFi Girl</h2>
-                                    <p id="player-description">Легендарный лоу-фай стрим без авторских прав</p>
+                                    <h2 id="player-station">Выберите радиостанцию</h2>
+                                    <p id="player-description">Нажмите на любую станцию слева для воспроизведения</p>
                                 </div>
                             </div>
                             
@@ -1352,25 +1393,59 @@
             const nextButton = document.getElementById('next-btn');
             const likeButton = document.getElementById('like-btn');
             const volumeSlider = document.getElementById('volume-slider');
+            const googleLoginBtn = document.getElementById('googleLoginBtn');
             
             let currentTheme = 'retro';
             let chatUnsubscribe = null;
             let userNickname = localStorage.getItem('userNickname') || 'Игрок';
             let isPlaying = false;
             let audio = null;
-            let currentStationIndex = 0;
-            let currentStation = stationIds[currentStationIndex];
+            let currentStationIndex = -1;
+            let currentStation = null;
             
             // Инициализация
             loadEmojis();
             loadTrendingGifs();
             loadChatHistory();
-            updateStationInfo();
             updateVolumeIcon();
             
             // Обновление онлайн-статистики
             updateOnlineCount();
             setInterval(updateOnlineCount, 10000);
+            
+            // Функции для работы с аутентификацией
+            function updateAuthUI(user) {
+                const authSection = document.getElementById('auth-section');
+                
+                if (user) {
+                    const displayName = user.displayName || 'Пользователь';
+                    const firstLetter = displayName.charAt(0).toUpperCase();
+                    
+                    authSection.innerHTML = `
+                        <div class="user-profile" style="display: flex; align-items: center; gap: 8px; background: rgba(40, 40, 40, 0.8); border: 1px solid rgba(255, 255, 255, 0.2); padding: 5px 12px; border-radius: 15px;">
+                            <div class="user-avatar" style="width: 25px; height: 25px; border-radius: 50%; background: linear-gradient(135deg, #1DB954 0%, #191414 100%); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; color: white;">${firstLetter}</div>
+                            <div class="user-name" style="font-size: 0.8rem;">${displayName}</div>
+                        </div>
+                    `;
+                } else {
+                    authSection.innerHTML = `
+                        <button class="google-login-btn" id="googleLoginBtn">
+                            <i class="fab fa-google"></i> Войти через Google
+                        </button>
+                    `;
+                    
+                    document.getElementById('googleLoginBtn').addEventListener('click', signInWithGoogle);
+                }
+            }
+            
+            function signInWithGoogle() {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                provider.setCustomParameters({ prompt: 'select_account' });
+                auth.signInWithPopup(provider);
+            }
+            
+            // Слушатель состояния аутентификации
+            auth.onAuthStateChanged(updateAuthUI);
             
             // Обработчики радиостанций
             stationItems.forEach(item => {
@@ -1385,7 +1460,6 @@
                     this.classList.add('active');
                     
                     updateStationInfo();
-                    playerSection.style.display = 'block';
                     
                     if (isPlaying) {
                         playStation();
@@ -1395,6 +1469,11 @@
             
             // Обработчик кнопки воспроизведения
             playButton.addEventListener('click', function() {
+                if (currentStation === null) {
+                    alert('Сначала выберите радиостанцию!');
+                    return;
+                }
+                
                 isPlaying = !isPlaying;
                 
                 if (isPlaying) {
@@ -1410,7 +1489,11 @@
             
             // Обработчик кнопки "Предыдущая станция"
             prevButton.addEventListener('click', function() {
-                currentStationIndex = (currentStationIndex - 1 + stationIds.length) % stationIds.length;
+                if (currentStationIndex === -1) {
+                    currentStationIndex = 0;
+                } else {
+                    currentStationIndex = (currentStationIndex - 1 + stationIds.length) % stationIds.length;
+                }
                 currentStation = stationIds[currentStationIndex];
                 updateStationInfo();
                 updateActiveStation();
@@ -1419,7 +1502,11 @@
             
             // Обработчик кнопки "Следующая станция"
             nextButton.addEventListener('click', function() {
-                currentStationIndex = (currentStationIndex + 1) % stationIds.length;
+                if (currentStationIndex === -1) {
+                    currentStationIndex = 0;
+                } else {
+                    currentStationIndex = (currentStationIndex + 1) % stationIds.length;
+                }
                 currentStation = stationIds[currentStationIndex];
                 updateStationInfo();
                 updateActiveStation();
@@ -1447,10 +1534,16 @@
             }
             
             function updateStationInfo() {
-                const station = radioStations[currentStation];
-                document.getElementById('player-station').textContent = station.name;
-                document.getElementById('player-description').textContent = station.description;
-                document.getElementById('player-icon').innerHTML = `<i class="${station.icon}"></i>`;
+                if (currentStation) {
+                    const station = radioStations[currentStation];
+                    document.getElementById('player-station').textContent = station.name;
+                    document.getElementById('player-description').textContent = station.description;
+                    document.getElementById('player-icon').innerHTML = `<i class="${station.icon}"></i>`;
+                } else {
+                    document.getElementById('player-station').textContent = "Выберите радиостанцию";
+                    document.getElementById('player-description').textContent = "Нажмите на любую станцию слева для воспроизведения";
+                    document.getElementById('player-icon').innerHTML = `<i class="fas fa-music"></i>`;
+                }
             }
             
             function updateActiveStation() {
