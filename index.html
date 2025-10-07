@@ -98,7 +98,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .stream-player {
+        #twitch-embed {
             width: 100%;
             flex: 1;
             min-height: 0;
@@ -112,7 +112,7 @@
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
-            min-width: 300px;
+            min-width: 350px;
         }
         
         .chat-header {
@@ -124,11 +124,11 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             color: #1DB954;
         }
-        
-        .chat-frame {
+
+        #chat_embed {
             flex: 1;
-            width: 100%;
             border: none;
+            width: 100%;
         }
         
         @media (max-width: 900px) {
@@ -138,7 +138,7 @@
             
             .chat-container {
                 width: 100%;
-                height: 300px;
+                height: 500px;
             }
         }
     </style>
@@ -163,11 +163,7 @@
         
         <div class="content">
             <div class="stream-container">
-                <iframe
-                    src="https://player.twitch.tv/?channel=sobiratei&parent=localhost&autoplay=true"
-                    class="stream-player"
-                    allowfullscreen>
-                </iframe>
+                <div id="twitch-embed"></div>
             </div>
             
             <div class="chat-container">
@@ -176,12 +172,26 @@
                     <h3>Чат Twitch</h3>
                 </div>
                 <iframe
-                    class="chat-frame"
-                    src="https://www.twitch.tv/embed/sobiratei/chat?parent=localhost&darkpopout">
+                  id="chat_embed"
+                  src="https://www.twitch.tv/embed/sobiratei/chat?parent=deyniik.github.io"
+                  height="500"
+                  width="350">
                 </iframe>
             </div>
         </div>
     </div>
 
+    <!-- Load the Twitch embed script -->
+    <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+
+    <script>
+        // Create Twitch Player
+        new Twitch.Player("twitch-embed", {
+            channel: "sobiratei",
+            width: "100%",
+            height: "100%",
+            parent: ["deyniik.github.io"]
+        });
+    </script>
 </body>
 </html>
