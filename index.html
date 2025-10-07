@@ -52,8 +52,8 @@
             font-family: 'Dancing Script', cursive;
             font-size: 3.5rem;
             font-weight: 700;
-            color: #9146FF;
-            text-shadow: 0 0 10px rgba(145, 70, 255, 0.7);
+            color: #1DB954;
+            text-shadow: 0 0 10px rgba(29, 185, 84, 0.7);
             letter-spacing: 1px;
             animation: flicker 1.5s infinite alternate;
         }
@@ -61,19 +61,19 @@
         @keyframes flicker {
             0%, 19%, 21%, 23%, 25%, 27%, 29%, 31%, 33%, 35%, 37%, 39%, 80%, 100% {
                 opacity: 1;
-                text-shadow: 0 0 10px rgba(145, 70, 255, 0.7), 0 0 20px rgba(145, 70, 255, 0.5);
+                text-shadow: 0 0 10px rgba(29, 185, 84, 0.7), 0 0 20px rgba(29, 185, 84, 0.5);
             }
             20%, 22%, 24%, 26%, 28%, 30%, 32%, 34%, 36%, 38%, 40%, 60% {
                 opacity: 0.6;
-                text-shadow: 0 0 5px rgba(145, 70, 255, 0.5);
+                text-shadow: 0 0 5px rgba(29, 185, 84, 0.5);
             }
             65%, 70%, 75% {
                 opacity: 0.9;
-                text-shadow: 0 0 15px rgba(145, 70, 255, 0.6), 0 0 25px rgba(145, 70, 255, 0.4);
+                text-shadow: 0 0 15px rgba(29, 185, 84, 0.6), 0 0 25px rgba(29, 185, 84, 0.4);
             }
             85%, 90%, 95% {
                 opacity: 0.7;
-                text-shadow: 0 0 8px rgba(145, 70, 255, 0.6);
+                text-shadow: 0 0 8px rgba(29, 185, 84, 0.6);
             }
         }
         
@@ -106,6 +106,19 @@
             justify-content: flex-start;
         }
         
+        .service-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.2rem;
+            color: #1DB954;
+            font-weight: bold;
+        }
+        
+        .service-logo i {
+            font-size: 1.5rem;
+        }
+        
         .header-center {
             flex: 2;
             display: flex;
@@ -122,8 +135,8 @@
         
         h1 {
             font-size: 1.8rem;
-            color: #9146FF;
-            text-shadow: 0 0 10px rgba(145, 70, 255, 0.5);
+            color: #1DB954;
+            text-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
             letter-spacing: 2px;
             margin-bottom: 5px;
         }
@@ -143,7 +156,7 @@
         }
         
         .theme-switcher:hover {
-            background: rgba(145, 70, 255, 0.3);
+            background: rgba(29, 185, 84, 0.3);
             transform: scale(1.05);
         }
         
@@ -183,7 +196,7 @@
         
         .stream-title {
             font-size: 1.2rem;
-            color: #9146FF;
+            color: #1DB954;
             margin-bottom: 5px;
         }
         
@@ -211,116 +224,13 @@
             padding: 12px 15px;
             background: rgba(40, 40, 40, 0.8);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: #9146FF;
+            color: #1DB954;
         }
         
         #chat_embed {
             flex: 1;
             border: none;
             width: 100%;
-        }
-        
-        .stream-controls {
-            background: #191414;
-            border-radius: 12px;
-            padding: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            height: auto;
-            flex-shrink: 0;
-            margin-top: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .control-btn {
-            background: rgba(50, 50, 50, 0.8);
-            border: none;
-            color: white;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        }
-        
-        .control-btn:hover {
-            background: rgba(145, 70, 255, 0.4);
-            transform: scale(1.05);
-        }
-        
-        .control-btn-large {
-            width: 50px;
-            height: 50px;
-            font-size: 1.3rem;
-            background: linear-gradient(135deg, #9146FF 0%, #191414 100%);
-            box-shadow: 0 0 12px rgba(145, 70, 255, 0.6);
-        }
-        
-        .control-btn-large:hover {
-            box-shadow: 0 0 16px rgba(145, 70, 255, 0.8);
-        }
-        
-        .volume-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 250px;
-            max-width: 100%;
-        }
-        
-        .volume-icon {
-            font-size: 1.1rem;
-            color: #9146FF;
-            width: 20px;
-            text-align: center;
-        }
-        
-        .volume-slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 4px;
-            background: rgba(80, 80, 80, 0.7);
-            border-radius: 5px;
-            outline: none;
-            cursor: pointer;
-        }
-        
-        .volume-slider:hover {
-            background: rgba(100, 100, 100, 0.8);
-        }
-        
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #9146FF;
-            cursor: pointer;
-            border: 2px solid white;
-            box-shadow: 0 0 4px rgba(0,0,0,0.5);
-        }
-        
-        .volume-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 6px rgba(145, 70, 255, 0.8);
-        }
-        
-        .volume-slider::-moz-range-thumb {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #9146FF;
-            cursor: pointer;
-            border: 2px solid white;
-            box-shadow: 0 0 4px rgba(0,0,0,0.5);
         }
         
         .crt-effect {
@@ -358,7 +268,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: #9146FF;
+            background: #1DB954;
             color: white;
             padding: 10px 15px;
             border-radius: 8px;
@@ -382,23 +292,16 @@
                 margin-bottom: 12px;
             }
             
-            .stream-controls {
-                flex-direction: column;
-                gap: 12px;
-                padding: 12px;
-            }
-            
-            .volume-control {
-                width: 100%;
-                max-width: 200px;
-            }
-            
             .header-center {
                 flex: 1;
             }
             
             h1 {
                 font-size: 1.5rem;
+            }
+            
+            .service-logo {
+                font-size: 1rem;
             }
         }
     </style>
@@ -415,13 +318,13 @@
     <div class="container" id="mainContainer">
         <header>
             <div class="header-left">
-                <div class="user-info">
-                    <i class="fas fa-user" style="color: #9146FF;"></i>
-                    <span>Гость</span>
+                <div class="service-logo">
+                    <i class="fas fa-tv"></i>
+                    <span>Deynik Stream</span>
                 </div>
             </div>
             <div class="header-center">
-                <h1>Deynik Stream</h1>
+                <h1>Прямой эфир: Sobiratei</h1>
             </div>
             <div class="header-right">
                 <button class="theme-switcher" id="themeSwitcher">
@@ -434,7 +337,7 @@
             <div class="stream-container crt-effect">
                 <div id="twitch-embed"></div>
                 <div class="stream-info">
-                    <h2 class="stream-title">Прямой эфир: Sobiratei</h2>
+                    <h2 class="stream-title">Sobiratei - Прямой эфир</h2>
                     <p class="stream-description">Стрим в прямом эфире. Присоединяйтесь к чату!</p>
                 </div>
             </div>
@@ -442,43 +345,14 @@
             <div class="chat-container crt-effect">
                 <div class="chat-header">
                     <i class="fas fa-comments"></i>
-                    <h3>Чат стрима</h3>
+                    <h3>Чат Twitch</h3>
                 </div>
                 <iframe
                     id="chat_embed"
-                    src="https://www.twitch.tv/embed/sobiratei/chat?parent=localhost&darkpopout"
+                    src="https://www.twitch.tv/embed/sobiratei/chat?parent=deyniik.github.io&darkpopout"
                     height="500"
                     width="100%">
                 </iframe>
-            </div>
-        </div>
-        
-        <div class="stream-controls crt-effect">
-            <div class="control-buttons-left">
-                <button class="control-btn" id="fullscreen-btn" title="Полноэкранный режим">
-                    <i class="fas fa-expand"></i>
-                </button>
-                <button class="control-btn" id="quality-btn" title="Качество видео">
-                    <i class="fas fa-cog"></i>
-                </button>
-            </div>
-            
-            <div class="control-buttons-center">
-                <button class="control-btn" id="prev-btn" title="Предыдущий стрим">
-                    <i class="fas fa-step-backward"></i>
-                </button>
-                <button class="control-btn control-btn-large" id="play-btn" title="Пауза/Продолжить">
-                    <i class="fas fa-pause"></i>
-                </button>
-                <button class="control-btn" id="next-btn" title="Следующий стрим">
-                    <i class="fas fa-step-forward"></i>
-                </button>
-            </div>
-            
-            <div class="volume-control">
-                <span class="volume-icon"><i class="fas fa-volume-down"></i></span>
-                <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="70">
-                <span class="volume-icon"><i class="fas fa-volume-up"></i></span>
             </div>
         </div>
     </div>
@@ -502,12 +376,6 @@
         function initApp() {
             console.log('Приложение стрима запущено!');
             
-            const playButton = document.getElementById('play-btn');
-            const prevButton = document.getElementById('prev-btn');
-            const nextButton = document.getElementById('next-btn');
-            const fullscreenBtn = document.getElementById('fullscreen-btn');
-            const qualityBtn = document.getElementById('quality-btn');
-            const volumeSlider = document.getElementById('volume-slider');
             const themeSwitcher = document.getElementById('themeSwitcher');
             const notification = document.getElementById('notification');
             
@@ -519,7 +387,7 @@
                 channel: "sobiratei",
                 width: "100%",
                 height: "100%",
-                parent: ["localhost"]
+                parent: ["deyniik.github.io", "localhost", "127.0.0.1"]
             });
             
             // Функция показа уведомления
@@ -528,7 +396,7 @@
                 notification.className = 'notification';
                 
                 if (type === 'success') {
-                    notification.style.background = '#9146FF';
+                    notification.style.background = '#1DB954';
                 } else if (type === 'error') {
                     notification.style.background = '#FF5722';
                 } else {
@@ -541,89 +409,6 @@
                     notification.classList.remove('show');
                 }, 3000);
             }
-            
-            // Обновление иконки громкости
-            function updateVolumeIcon() {
-                const volume = volumeSlider.value;
-                const volumeIcons = document.querySelectorAll('.volume-icon i');
-                volumeIcons.forEach(icon => {
-                    if (volume == 0) {
-                        icon.className = 'fas fa-volume-mute';
-                    } else if (volume < 50) {
-                        icon.className = 'fas fa-volume-down';
-                    } else {
-                        icon.className = 'fas fa-volume-up';
-                    }
-                });
-            }
-            
-            // Обработчик громкости
-            volumeSlider.addEventListener('input', function() {
-                console.log('Volume changed to:', this.value);
-                if (player) {
-                    player.setVolume(this.value / 100);
-                    console.log('Player volume set to:', this.value / 100);
-                }
-                updateVolumeIcon();
-            });
-            
-            // Инициализация иконки громкости
-            updateVolumeIcon();
-            
-            // Обработчик кнопки воспроизведения/паузы
-            playButton.addEventListener('click', function() {
-                if (player) {
-                    player.getPaused().then(paused => {
-                        if (paused) {
-                            player.play();
-                            playButton.innerHTML = '<i class="fas fa-pause"></i>';
-                            showNotification('Стрим продолжен', 'success');
-                        } else {
-                            player.pause();
-                            playButton.innerHTML = '<i class="fas fa-play"></i>';
-                            showNotification('Стрим на паузе', 'info');
-                        }
-                    });
-                }
-            });
-            
-            // Обработчик кнопки полноэкранного режима
-            fullscreenBtn.addEventListener('click', function() {
-                const streamContainer = document.querySelector('.stream-container');
-                if (!document.fullscreenElement) {
-                    if (streamContainer.requestFullscreen) {
-                        streamContainer.requestFullscreen();
-                    } else if (streamContainer.webkitRequestFullscreen) {
-                        streamContainer.webkitRequestFullscreen();
-                    } else if (streamContainer.msRequestFullscreen) {
-                        streamContainer.msRequestFullscreen();
-                    }
-                    showNotification('Полноэкранный режим включен', 'success');
-                } else {
-                    if (document.exitFullscreen) {
-                        document.exitFullscreen();
-                    } else if (document.webkitExitFullscreen) {
-                        document.webkitExitFullscreen();
-                    } else if (document.msExitFullscreen) {
-                        document.msExitFullscreen();
-                    }
-                    showNotification('Полноэкранный режим выключен', 'info');
-                }
-            });
-            
-            // Обработчик кнопки качества
-            qualityBtn.addEventListener('click', function() {
-                showNotification('Функция выбора качества скоро будет доступна', 'info');
-            });
-            
-            // Обработчики кнопок навигации (заглушки)
-            prevButton.addEventListener('click', function() {
-                showNotification('Функция переключения стримов скоро будет доступна', 'info');
-            });
-            
-            nextButton.addEventListener('click', function() {
-                showNotification('Функция переключения стримов скоро будет доступна', 'info');
-            });
             
             // Переключение темы
             themeSwitcher.addEventListener('click', function() {
@@ -644,15 +429,17 @@
                     showNotification('Тема изменена на Ретро', 'success');
                 }
             });
-            
-            // Обработчик изменения размера окна
+
+            // Обработчик изменения размера окна для адаптивности
             window.addEventListener('resize', function() {
-                // Перезагружаем чат при изменении размера окна
                 const chatIframe = document.getElementById('chat_embed');
                 if (chatIframe) {
                     chatIframe.style.height = '100%';
                 }
             });
+
+            // Уведомление о загрузке
+            showNotification('Стрим загружается...', 'info');
         }
     </script>
 </body>
