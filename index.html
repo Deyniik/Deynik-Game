@@ -49,7 +49,7 @@
         .loading-gif {
             width: 200px;
             height: 200px;
-            background: url('https://i.pinimg.com/originals/3b/06/ee/3b06ee2cc6a317ccdc098b4ab36a8388.gif') center/cover no-repeat;
+            background: url('https://i.pinimg.com/originals/2d/a9/bd/2da9bdcb0074d4d14066640894234aa7.gif') center/cover no-repeat;
         }
         
         .loading-text {
@@ -94,7 +94,7 @@
         header {
             text-align: center;
             padding: 8px 0;
-            margin-bottom: 20px; /* Увеличил отступ снизу на 5px */
+            margin-bottom: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             flex-shrink: 0;
             position: relative;
@@ -117,11 +117,57 @@
             justify-content: center;
         }
         
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            justify-content: flex-end;
+        }
+        
         h1 {
             font-size: 2rem;
             color: #1DB954;
             text-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
             letter-spacing: 2px;
+        }
+        
+        .service-btn {
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 50px;
+            height: 42px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 4px;
+        }
+        
+        .service-btn:hover {
+            background: rgba(29, 185, 84, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .service-btn.active {
+            background: rgba(29, 185, 84, 0.4);
+            border-color: #1DB954;
+        }
+        
+        .service-icon {
+            font-size: 1rem;
+            margin-bottom: 1px;
+        }
+        
+        .service-name {
+            font-size: 0.55rem;
+            font-weight: bold;
         }
         
         .google-login-btn {
@@ -147,7 +193,7 @@
             display: flex;
             flex-direction: column;
             flex: 1;
-            gap: 20px; /* Увеличил отступ между секциями */
+            gap: 20px;
             overflow: hidden;
         }
         
@@ -161,7 +207,7 @@
         }
         
         .side-panel {
-            flex: 0.8; /* Уменьшил ширину боковых панелей на 10px */
+            flex: 0.8;
             background: #191414;
             border-radius: 12px;
             padding: 15px;
@@ -169,20 +215,34 @@
             flex-direction: column;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            min-width: 230px; /* Уменьшил минимальную ширину */
+            min-width: 230px;
             overflow: hidden;
             transition: all 0.3s ease;
         }
         
         .game-area {
-            flex: 3.4; /* Увеличил игровую область */
+            flex: 3.4;
             display: flex;
             flex-direction: column;
             gap: 15px;
+            overflow: hidden;
+        }
+        
+        .game-scroll-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        
+        .game-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: 100%;
         }
         
         .game-wrapper {
-            flex: 1;
             background: #191414;
             border-radius: 12px;
             overflow: hidden;
@@ -192,6 +252,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex: 1;
             min-height: 500px;
         }
         
@@ -202,13 +263,167 @@
             background: #000;
         }
         
-        .player-section {
+        /* ОБНОВЛЕННЫЙ МИНИ-ПЛЕЕР */
+        .mini-player {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 44px; /* На 2px больше */
+            background: rgba(25, 20, 20, 0.95); /* Темный цвет как у других окон */
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            z-index: 10;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .mini-player-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+        }
+        
+        .mini-player-icon {
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        
+        .mini-player-text {
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .mini-player-station {
+            font-size: 0.8rem;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .mini-player-song {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.8);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .mini-player-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .mini-player-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mini-player-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* РЕГУЛЯТОР ГРОМКОСТИ */
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 5px;
+        }
+        
+        .volume-slider {
+            width: 60px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #1DB954;
+            cursor: pointer;
+        }
+        
+        .volume-slider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #1DB954;
+            cursor: pointer;
+            border: none;
+        }
+        
+        /* Секция комментариев как в YouTube - ПЕРЕМЕЩЕНА НИЖЕ */
+        .comments-section {
             background: #191414;
             border-radius: 12px;
-            padding: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            height: auto;
+            padding: 15px;
+            margin-top: auto; /* Теперь комментарии внизу */
+            max-height: 120px; /* Ограничиваем высоту */
+            overflow-y: auto;
+        }
+        
+        .comments-header {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #1DB954;
+        }
+        
+        .comments-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .comment {
+            padding: 8px 10px;
+            background: rgba(40, 40, 40, 0.6);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.3;
+        }
+        
+        .comment-user {
+            font-weight: bold;
+            color: #1DB954;
+            margin-right: 5px;
+        }
+        
+        .comment-time {
+            font-size: 0.7rem;
+            color: #888;
+            margin-left: 5px;
         }
         
         .panel-section {
@@ -225,23 +440,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-        
-        .stats {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        .stat {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 0;
-        }
-        
-        .stat-value {
-            color: #1DB954;
-            font-weight: bold;
         }
         
         /* Стили для радиостанций */
@@ -325,7 +523,6 @@
             scrollbar-width: thin;
             scrollbar-color: rgba(29, 185, 84, 0.3) #191414;
             padding-right: 5px;
-            margin-bottom: 10px;
         }
         
         .game-list::-webkit-scrollbar {
@@ -372,49 +569,6 @@
             text-align: center;
         }
         
-        /* Стили для загрузки своей игры */
-        .custom-game-section {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .custom-game-input {
-            width: 100%;
-            background: rgba(40, 40, 40, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 8px 10px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            outline: none;
-            margin-bottom: 8px;
-        }
-        
-        .custom-game-input:focus {
-            border-color: #1DB954;
-        }
-        
-        .custom-game-btn {
-            width: 100%;
-            background: rgba(29, 185, 84, 0.3);
-            border: 1px solid #1DB954;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-        
-        .custom-game-btn:hover {
-            background: rgba(29, 185, 84, 0.5);
-        }
-        
         /* Стили для чата */
         .chat-container {
             flex: 1;
@@ -459,12 +613,12 @@
         }
         
         .message {
-            padding: 8px 10px; /* Увеличил отступы в сообщениях */
-            margin: 5px 0; /* Увеличил отступы между сообщениями */
+            padding: 8px 10px;
+            margin: 5px 0;
             background: rgba(40, 40, 40, 0.6);
             border-radius: 8px;
-            font-size: 0.9rem; /* Увеличил размер шрифта */
-            line-height: 1.3; /* Увеличил межстрочный интервал */
+            font-size: 0.9rem;
+            line-height: 1.3;
             word-wrap: break-word;
             position: relative;
             transition: all 0.2s ease;
@@ -481,7 +635,7 @@
         }
         
         .message-time {
-            font-size: 0.75rem; /* Немного увеличил время */
+            font-size: 0.75rem;
             color: #888;
             margin-left: 5px;
         }
@@ -498,7 +652,7 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             padding: 2px 6px;
-            font-size: 0.75rem; /* Немного увеличил реакции */
+            font-size: 0.75rem;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
@@ -512,7 +666,7 @@
         }
         
         .reaction-count {
-            font-size: 0.7rem; /* Немного увеличил счетчик реакций */
+            font-size: 0.7rem;
             color: #B3B3B3;
         }
         
@@ -589,11 +743,11 @@
             background: rgba(40, 40, 40, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 8px 10px 8px 80px;
+            padding: 10px 10px 10px 80px;
             border-radius: 15px;
-            font-size: 0.85rem; /* Немного увеличил шрифт ввода */
+            font-size: 0.85rem;
             outline: none;
-            height: 36px;
+            height: 40px;
         }
         
         .chat-input:focus {
@@ -636,15 +790,16 @@
             background: rgba(29, 185, 84, 0.3);
             border: 1px solid #1DB954;
             color: white;
-            padding: 8px 12px;
+            padding: 8px 15px;
             border-radius: 15px;
             cursor: pointer;
             font-size: 0.8rem;
             transition: all 0.3s ease;
-            height: 36px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
         
         .chat-send-btn:hover:not(:disabled) {
@@ -656,10 +811,10 @@
             cursor: not-allowed;
         }
         
-        /* ОКНО ЭМОДЗИ - ИСПРАВЛЕНО ПОЛОЖЕНИЕ */
+        /* ОКНО ЭМОДЗИ */
         .emoji-picker {
             position: absolute;
-            bottom: 45px;
+            bottom: 50px;
             left: 0;
             background: rgba(40, 40, 40, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -759,10 +914,10 @@
             transform: scale(1.1);
         }
         
-        /* Окно поиска GIF - ИСПРАВЛЕНО ПОЛОЖЕНИЕ */
+        /* Окно поиска GIF */
         .gif-picker {
             position: absolute;
-            bottom: 45px;
+            bottom: 50px;
             left: 0;
             background: rgba(40, 40, 40, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -856,219 +1011,6 @@
             box-shadow: 0 0 8px rgba(29, 185, 84, 0.5);
         }
 
-        /* Плеер */
-        .player-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-        }
-        
-        .player-left {
-            display: flex;
-            align-items: center;
-            flex: 1;
-        }
-        
-        .player-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #1DB954 0%, #191414 100%);
-            border-radius: 50%;
-            margin-right: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.3rem;
-            box-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
-            transition: transform 0.3s ease;
-        }
-        
-        .player-icon.playing {
-            animation: rotate 10s linear infinite;
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .station-text {
-            flex: 1;
-        }
-        
-        .station-text h2 {
-            font-size: 1.3rem;
-            margin-bottom: 4px;
-            color: #1DB954;
-        }
-        
-        .station-text p {
-            color: #B3B3B3;
-            font-size: 0.9rem;
-        }
-        
-        .player-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            gap: 10px;
-        }
-        
-        .player-buttons {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            flex: 1;
-            gap: 15px;
-        }
-        
-        .btn {
-            background: rgba(50, 50, 50, 0.8);
-            border: none;
-            color: white;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn:hover {
-            background: rgba(29, 185, 84, 0.4);
-            transform: scale(1.05);
-        }
-        
-        .btn-play {
-            background: linear-gradient(135deg, #1DB954 0%, #191414 100%);
-            width: 50px;
-            height: 50px;
-            font-size: 1.3rem;
-            box-shadow: 0 0 12px rgba(29, 185, 84, 0.6);
-        }
-        
-        .btn-play:hover {
-            box-shadow: 0 0 16px rgba(29, 185, 84, 0.8);
-        }
-        
-        .btn-like-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .likes-count-bottom {
-            font-size: 0.9rem;
-            color: #B3B3B3;
-            font-weight: bold;
-            min-width: 20px;
-            text-align: center;
-        }
-        
-        .btn-like {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2px;
-            background: rgba(50, 50, 50, 0.8);
-            border: none;
-            color: white;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn-like i {
-            font-size: 1.3rem;
-            color: white;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-like.active i {
-            color: white;
-        }
-        
-        .btn-like:hover {
-            background: rgba(29, 185, 84, 0.4);
-            transform: scale(1.05);
-        }
-        
-        .player-bottom {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            margin-top: 10px;
-        }
-        
-        .volume-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 250px;
-            max-width: 100%;
-        }
-        
-        .volume-icon {
-            font-size: 1.1rem;
-            color: #1DB954;
-            width: 20px;
-            text-align: center;
-        }
-        
-        .volume-slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 4px;
-            background: rgba(80, 80, 80, 0.7);
-            border-radius: 5px;
-            outline: none;
-            cursor: pointer;
-        }
-        
-        .volume-slider:hover {
-            background: rgba(100, 100, 100, 0.8);
-        }
-        
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #1DB954;
-            cursor: pointer;
-            border: 2px solid white;
-            box-shadow: 0 0 4px rgba(0,0,0,0.5);
-        }
-        
-        .volume-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 6px rgba(29, 185, 84, 0.8);
-        }
-        
-        .volume-slider::-moz-range-thumb {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #1DB954;
-            cursor: pointer;
-            border: 2px solid white;
-            box-shadow: 0 0 4px rgba(0,0,0,0.5);
-        }
-        
         .crt-effect {
             position: relative;
             overflow: hidden;
@@ -1124,6 +1066,23 @@
                 width: 250px;
                 left: 0;
             }
+            
+            .header-right {
+                gap: 4px;
+            }
+            
+            .service-btn {
+                width: 45px;
+                height: 38px;
+            }
+            
+            .service-icon {
+                font-size: 0.9rem;
+            }
+            
+            .service-name {
+                font-size: 0.5rem;
+            }
         }
     </style>
 </head>
@@ -1148,38 +1107,34 @@
             <div class="header-center">
                 <h1>Deynik Game</h1>
             </div>
+            <div class="header-right">
+                <a href="https://deyniik.github.io/DeynikRadio/" class="service-btn" title="Deynik Radio">
+                    <div class="service-icon">📻</div>
+                    <div class="service-name">Radio</div>
+                </a>
+                <a href="https://deyniik.github.io/Deynik-Focus/" class="service-btn" title="Deynik Focus">
+                    <div class="service-icon">⏰</div>
+                    <div class="service-name">Focus</div>
+                </a>
+                <a href="https://deyniik.github.io/Messenger/#" class="service-btn" title="Deynik Messenger">
+                    <div class="service-icon">💬</div>
+                    <div class="service-name">Messenger</div>
+                </a>
+                <a href="#" class="service-btn active" title="Deynik Game">
+                    <div class="service-icon">🎮</div>
+                    <div class="service-name">Game</div>
+                </a>
+            </div>
         </header>
         
         <div class="main-content">
             <div class="game-section">
                 <div class="side-panel crt-effect">
-                    <div class="panel-section">
-                        <h3><i class="fas fa-chart-line"></i> Статистика игры</h3>
-                        <div class="stats">
-                            <div class="stat">
-                                <span>Игроков онлайн:</span>
-                                <span class="stat-value" id="onlineCount">1,223</span>
-                            </div>
-                            <div class="stat">
-                                <span>Ваш рейтинг:</span>
-                                <span class="stat-value">-#</span>
-                            </div>
-                            <div class="stat">
-                                <span>Лучший счет:</span>
-                                <span class="stat-value">0</span>
-                            </div>
-                            <div class="stat">
-                                <span>Захвачено клеток:</span>
-                                <span class="stat-value">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    
                     <!-- МЕНЮ С ИГРАМИ -->
                     <div class="panel-section">
                         <h3><i class="fas fa-gamepad"></i> Игры</h3>
                         <ul class="game-list">
-                            <li data-game="tileman" data-url="https://www.crazygames.ru/embed/tileman-io">
+                            <li class="active" data-game="tileman" data-url="https://www.crazygames.ru/embed/tileman-io">
                                 <div style="display: flex; align-items: center;">
                                     <span class="game-icon"><i class="fas fa-border-all"></i></span> Tileman
                                 </div>
@@ -1195,15 +1150,6 @@
                                 </div>
                             </li>
                         </ul>
-                    </div>
-                    
-                    <!-- ДОБАВЛЕНИЕ СВОЕЙ ИГРЫ -->
-                    <div class="panel-section">
-                        <h3><i class="fas fa-plus-circle"></i> Добавить свою игру</h3>
-                        <input type="text" class="custom-game-input" id="customGameUrl" placeholder="Вставьте URL игры">
-                        <button class="custom-game-btn" id="addCustomGame">
-                            <i class="fas fa-plus"></i> Добавить игру
-                        </button>
                     </div>
                     
                     <!-- РАДИОСТАНЦИИ (5 вместо 8) -->
@@ -1255,53 +1201,66 @@
                 </div>
                 
                 <div class="game-area">
-                    <div class="game-wrapper crt-effect">
-                        <!-- Игра будет загружаться здесь -->
-                        <iframe 
-                            src="https://www.crazygames.ru/embed/tileman-io" 
-                            class="game-frame"
-                            width="100%" 
-                            height="100%"
-                            allow="fullscreen"
-                            frameborder="0"
-                            id="gameFrame">
-                        </iframe>
-                    </div>
-                    
-                    <!-- Плеер под игрой - всегда открыт -->
-                    <div class="player-section crt-effect" id="player-section">
-                        <div class="player-container">
-                            <div class="player-left">
-                                <div class="player-icon" id="player-icon">
-                                    <i class="fas fa-music"></i>
-                                </div>
-                                <div class="station-text">
-                                    <h2 id="player-station">Выберите радиостанцию</h2>
-                                    <p id="player-description">Нажмите на любую станцию слева для воспроизведения</p>
+                    <div class="game-scroll-container">
+                        <div class="game-content">
+                            <div class="game-wrapper crt-effect">
+                                <!-- Игра будет загружаться здесь -->
+                                <iframe 
+                                    src="https://www.crazygames.ru/embed/tileman-io" 
+                                    class="game-frame"
+                                    width="100%" 
+                                    height="100%"
+                                    allow="fullscreen"
+                                    frameborder="0"
+                                    id="gameFrame">
+                                </iframe>
+                                
+                                <!-- Маленький плеер поверх игры -->
+                                <div class="mini-player" id="miniPlayer">
+                                    <div class="mini-player-info">
+                                        <div class="mini-player-icon">
+                                            <i class="fas fa-music"></i>
+                                        </div>
+                                        <div class="mini-player-text">
+                                            <div class="mini-player-station" id="miniPlayerStation">Выберите радиостанцию</div>
+                                            <div class="mini-player-song" id="miniPlayerSong">Нажмите на станцию слева</div>
+                                        </div>
+                                    </div>
+                                    <div class="mini-player-controls">
+                                        <button class="mini-player-btn" id="miniPlayerPlay">
+                                            <i class="fas fa-play"></i>
+                                        </button>
+                                        <button class="mini-player-btn" id="miniPlayerNext">
+                                            <i class="fas fa-step-forward"></i>
+                                        </button>
+                                        <div class="volume-control">
+                                            <button class="mini-player-btn" id="muteBtn">
+                                                <i class="fas fa-volume-up"></i>
+                                            </button>
+                                            <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeSlider">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             
-                            <div class="player-center">
-                                <button class="btn" id="prev-btn"><i class="fas fa-step-backward"></i></button>
-                                <button class="btn btn-play" id="play-btn"><i class="fas fa-play"></i></button>
-                                <button class="btn" id="next-btn"><i class="fas fa-step-forward"></i></button>
-                            </div>
-                            
-                            <div class="player-buttons">
-                                <div class="btn-like-container">
-                                    <span class="likes-count-bottom" id="likes-count-bottom">0</span>
-                                    <button class="btn-like" id="like-btn" title="Лайкнуть станцию">
-                                        <i class="far fa-heart"></i>
-                                    </button>
+                            <!-- Секция комментариев как в YouTube - ТЕПЕРЬ ВНИЗУ -->
+                            <div class="comments-section crt-effect">
+                                <div class="comments-header">
+                                    <i class="fas fa-comments"></i>
+                                    <h3>Комментарии к игре</h3>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        <div class="player-bottom">
-                            <div class="volume-control">
-                                <span class="volume-icon"><i class="fas fa-volume-down"></i></span>
-                                <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="70">
-                                <span class="volume-icon"><i class="fas fa-volume-up"></i></span>
+                                <div class="comments-content" id="comments-content">
+                                    <div class="comment">
+                                        <span class="comment-user">Игрок1:</span>
+                                        Отличная игра! Графика просто супер 
+                                        <span class="comment-time">12:30</span>
+                                    </div>
+                                    <div class="comment">
+                                        <span class="comment-user">Профи:</span>
+                                        Легко прошел за 5 минут, нужно добавить сложности
+                                        <span class="comment-time">12:25</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1333,7 +1292,7 @@
                                 <i class="fas fa-paper-plane"></i>
                             </button>
                             
-                            <!-- ОКНО ЭМОДЗИ С ПОИСКОМ - ПОЛОЖЕНИЕ ИСПРАВЛЕНО -->
+                            <!-- ОКНО ЭМОДЗИ С ПОИСКОМ -->
                             <div class="emoji-picker" id="emoji-picker">
                                 <input type="text" class="emoji-search" id="emoji-search" placeholder="Поиск эмодзи...">
                                 <div class="emoji-categories">
@@ -1347,7 +1306,7 @@
                                 </div>
                             </div>
                             
-                            <!-- ОКНО ПОИСКА GIF - ПОЛОЖЕНИЕ ИСПРАВЛЕНО -->
+                            <!-- ОКНО ПОИСКА GIF -->
                             <div class="gif-picker" id="gif-picker">
                                 <input type="text" class="gif-search" id="gif-search" placeholder="Поиск GIF...">
                                 <div class="gif-trending">
@@ -1388,7 +1347,7 @@
             lofi: {
                 name: "LoFi Girl",
                 url: "https://play.streamafrica.net/lofiradio",
-                description: "Легендарный лоу-фай стрим без авторских прав",
+                description: "Легендарный лоу-фай стрим",
                 currentTrack: "Chill Beats",
                 currentArtist: "LoFi Artist",
                 quality: "192kbps",
@@ -1397,7 +1356,7 @@
             minecraft: {
                 name: "MINECRAFT Lo Fi",
                 url: "https://stream-173.zeno.fm/kp41ftw3zehvv",
-                description: "Уютные Minecraft саундтреки в Lo-Fi аранжировке",
+                description: "Уютные Minecraft саундтреки",
                 currentTrack: "Minecraft Ambience",
                 currentArtist: "C418 Lo-Fi Remix",
                 quality: "128kbps",
@@ -1406,7 +1365,7 @@
             chillhop: {
                 name: "Chillhop Radio",
                 url: "https://stream-178.zeno.fm/f3wvbbqmdg8uv",
-                description: "Расслабляющие биты для работы и отдыха без авторских прав",
+                description: "Расслабляющие биты",
                 currentTrack: "Chill Beats",
                 currentArtist: "Chillhop Music",
                 quality: "128kbps",
@@ -1424,7 +1383,7 @@
             kissint: {
                 name: "KISS FM",
                 url: "https://cloud.revma.ihrhls.com/zc185",
-                description: "Лучшие мировые хиты в отличном качестве",
+                description: "Лучшие мировые хиты",
                 currentTrack: "Популярные хиты",
                 currentArtist: "KISS FM",
                 quality: "128kbps",
@@ -1470,34 +1429,29 @@
             const gifTrendingBtns = document.querySelectorAll('.gif-trending-btn');
             const stationItems = document.querySelectorAll('.station-list li');
             const gameItems = document.querySelectorAll('.game-list li');
-            const customGameUrl = document.getElementById('customGameUrl');
-            const addCustomGame = document.getElementById('addCustomGame');
             const gameFrame = document.getElementById('gameFrame');
-            const playerSection = document.getElementById('player-section');
-            const playButton = document.getElementById('play-btn');
-            const prevButton = document.getElementById('prev-btn');
-            const nextButton = document.getElementById('next-btn');
-            const likeButton = document.getElementById('like-btn');
-            const volumeSlider = document.getElementById('volume-slider');
             const googleLoginBtn = document.getElementById('googleLoginBtn');
+            const miniPlayer = document.getElementById('miniPlayer');
+            const miniPlayerStation = document.getElementById('miniPlayerStation');
+            const miniPlayerSong = document.getElementById('miniPlayerSong');
+            const miniPlayerPlay = document.getElementById('miniPlayerPlay');
+            const miniPlayerNext = document.getElementById('miniPlayerNext');
+            const muteBtn = document.getElementById('muteBtn');
+            const volumeSlider = document.getElementById('volumeSlider');
             
-            let currentTheme = 'retro';
             let chatUnsubscribe = null;
             let userNickname = localStorage.getItem('userNickname') || 'Игрок';
-            let isPlaying = false;
             let audio = null;
             let currentStationIndex = -1;
             let currentStation = null;
+            let isPlaying = false;
+            let isMuted = false;
+            let currentVolume = 50;
             
             // Инициализация
             loadEmojis();
             loadTrendingGifs();
             loadChatHistory();
-            updateVolumeIcon();
-            
-            // Обновление онлайн-статистики
-            updateOnlineCount();
-            setInterval(updateOnlineCount, 10000);
             
             // Обработчики для игр
             gameItems.forEach(item => {
@@ -1515,59 +1469,6 @@
                     // Загрузка игры в iframe
                     gameFrame.src = gameUrl;
                 });
-            });
-            
-            // Обработчик для добавления своей игры
-            addCustomGame.addEventListener('click', function() {
-                const url = customGameUrl.value.trim();
-                if (url) {
-                    // Создаем новый элемент списка
-                    const gameList = document.querySelector('.game-list');
-                    const newGameItem = document.createElement('li');
-                    newGameItem.setAttribute('data-game', 'custom');
-                    newGameItem.setAttribute('data-url', url);
-                    
-                    // Извлекаем название из URL
-                    let gameName = 'Моя игра';
-                    try {
-                        const urlObj = new URL(url);
-                        const pathParts = urlObj.pathname.split('/');
-                        if (pathParts.length > 1) {
-                            gameName = pathParts[pathParts.length - 2].replace(/-/g, ' ');
-                            gameName = gameName.charAt(0).toUpperCase() + gameName.slice(1);
-                        }
-                    } catch (e) {
-                        // Если URL невалидный, используем стандартное имя
-                    }
-                    
-                    newGameItem.innerHTML = `
-                        <div style="display: flex; align-items: center;">
-                            <span class="game-icon"><i class="fas fa-gamepad"></i></span> ${gameName}
-                        </div>
-                    `;
-                    
-                    // Добавляем обработчик события
-                    newGameItem.addEventListener('click', function() {
-                        const gameUrl = this.getAttribute('data-url');
-                        
-                        // Сброс активного класса
-                        document.querySelectorAll('.game-list li').forEach(item => {
-                            item.classList.remove('active');
-                        });
-                        
-                        // Установка активного класса
-                        this.classList.add('active');
-                        
-                        // Загрузка игры в iframe
-                        gameFrame.src = gameUrl;
-                    });
-                    
-                    gameList.appendChild(newGameItem);
-                    customGameUrl.value = '';
-                    
-                    // Автоматически выбираем новую игру
-                    newGameItem.click();
-                }
             });
             
             // Функции для работы с аутентификацией
@@ -1616,90 +1517,85 @@
                     });
                     this.classList.add('active');
                     
-                    updateStationInfo();
+                    // Обновление мини-плеера
+                    updateMiniPlayer();
                     
-                    if (isPlaying) {
-                        playStation();
-                    }
+                    // Воспроизведение радиостанции
+                    playStation();
                 });
             });
             
-            // Обработчик кнопки воспроизведения
-            playButton.addEventListener('click', function() {
-                if (currentStation === null) {
-                    alert('Сначала выберите радиостанцию!');
-                    return;
-                }
-                
-                isPlaying = !isPlaying;
-                
-                if (isPlaying) {
-                    playButton.innerHTML = '<i class="fas fa-pause"></i>';
-                    document.getElementById('player-icon').classList.add('playing');
-                    playStation();
-                } else {
-                    playButton.innerHTML = '<i class="fas fa-play"></i>';
-                    document.getElementById('player-icon').classList.remove('playing');
-                    if (audio) audio.pause();
+            // Обработчики мини-плеера
+            miniPlayerPlay.addEventListener('click', function() {
+                if (currentStation) {
+                    if (isPlaying) {
+                        audio.pause();
+                        isPlaying = false;
+                        miniPlayerPlay.innerHTML = '<i class="fas fa-play"></i>';
+                    } else {
+                        playStation();
+                    }
                 }
             });
             
-            // Обработчик кнопки "Предыдущая станция"
-            prevButton.addEventListener('click', function() {
-                if (currentStationIndex === -1) {
-                    currentStationIndex = 0;
-                } else {
-                    currentStationIndex = (currentStationIndex - 1 + stationIds.length) % stationIds.length;
-                }
-                currentStation = stationIds[currentStationIndex];
-                updateStationInfo();
-                updateActiveStation();
-                if (isPlaying) playStation();
-            });
-            
-            // Обработчик кнопки "Следующая станция"
-            nextButton.addEventListener('click', function() {
+            miniPlayerNext.addEventListener('click', function() {
                 if (currentStationIndex === -1) {
                     currentStationIndex = 0;
                 } else {
                     currentStationIndex = (currentStationIndex + 1) % stationIds.length;
                 }
                 currentStation = stationIds[currentStationIndex];
-                updateStationInfo();
                 updateActiveStation();
-                if (isPlaying) playStation();
+                updateMiniPlayer();
+                playStation();
             });
             
-            // Обработчик громкости
+            // Регулятор громкости
             volumeSlider.addEventListener('input', function() {
+                currentVolume = this.value;
                 if (audio) {
-                    audio.volume = this.value / 100;
+                    audio.volume = currentVolume / 100;
                 }
                 updateVolumeIcon();
             });
             
-            function playStation() {
-                if (audio) audio.pause();
-                audio = new Audio(radioStations[currentStation].url);
-                audio.volume = volumeSlider.value / 100;
-                audio.play().catch(error => {
-                    console.error('Ошибка воспроизведения:', error);
-                    isPlaying = false;
-                    playButton.innerHTML = '<i class="fas fa-play"></i>';
-                    document.getElementById('player-icon').classList.remove('playing');
-                });
+            // Кнопка отключения звука
+            muteBtn.addEventListener('click', function() {
+                isMuted = !isMuted;
+                
+                if (isMuted) {
+                    volumeSlider.value = 0;
+                    currentVolume = 0;
+                    if (audio) audio.volume = 0;
+                } else {
+                    volumeSlider.value = currentVolume;
+                    if (audio) audio.volume = currentVolume / 100;
+                }
+                
+                updateVolumeIcon();
+            });
+            
+            function updateVolumeIcon() {
+                const vol = parseInt(volumeSlider.value);
+                let icon = 'fa-volume-up';
+                
+                if (vol === 0) {
+                    icon = 'fa-volume-mute';
+                } else if (vol < 50) {
+                    icon = 'fa-volume-down';
+                }
+                
+                muteBtn.innerHTML = `<i class="fas ${icon}"></i>`;
             }
             
-            function updateStationInfo() {
+            function updateMiniPlayer() {
                 if (currentStation) {
                     const station = radioStations[currentStation];
-                    document.getElementById('player-station').textContent = station.name;
-                    document.getElementById('player-description').textContent = station.description;
-                    document.getElementById('player-icon').innerHTML = `<i class="${station.icon}"></i>`;
+                    miniPlayerStation.textContent = station.name;
+                    miniPlayerSong.textContent = station.currentTrack;
                 } else {
-                    document.getElementById('player-station').textContent = "Выберите радиостанцию";
-                    document.getElementById('player-description').textContent = "Нажмите на любую станцию слева для воспроизведения";
-                    document.getElementById('player-icon').innerHTML = `<i class="fas fa-music"></i>`;
+                    miniPlayerStation.textContent = "Выберите радиостанцию";
+                    miniPlayerSong.textContent = "Нажмите на станцию слева";
                 }
             }
             
@@ -1712,18 +1608,24 @@
                 });
             }
             
-            function updateVolumeIcon() {
-                const volume = volumeSlider.value;
-                const volumeIcons = document.querySelectorAll('.volume-icon i');
-                volumeIcons.forEach(icon => {
-                    if (volume == 0) {
-                        icon.className = 'fas fa-volume-mute';
-                    } else if (volume < 50) {
-                        icon.className = 'fas fa-volume-down';
-                    } else {
-                        icon.className = 'fas fa-volume-up';
-                    }
-                });
+            function playStation() {
+                if (audio) {
+                    audio.pause();
+                    audio = null;
+                }
+                
+                if (currentStation) {
+                    audio = new Audio(radioStations[currentStation].url);
+                    audio.volume = currentVolume / 100;
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        miniPlayerPlay.innerHTML = '<i class="fas fa-pause"></i>';
+                    }).catch(error => {
+                        console.error('Ошибка воспроизведения:', error);
+                        isPlaying = false;
+                        miniPlayerPlay.innerHTML = '<i class="fas fa-play"></i>';
+                    });
+                }
             }
             
             // Загрузка эмодзи для чата
@@ -2029,14 +1931,6 @@
             gifPicker.addEventListener('click', function(e) {
                 e.stopPropagation();
             });
-        }
-        
-        // Обновление онлайн-статистики
-        function updateOnlineCount() {
-            const onlineCount = document.getElementById('onlineCount');
-            const baseCount = 1223;
-            const randomChange = Math.floor(Math.random() * 50) - 25;
-            onlineCount.textContent = (baseCount + randomChange).toLocaleString();
         }
     </script>
 </body>
