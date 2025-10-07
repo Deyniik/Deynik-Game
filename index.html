@@ -94,7 +94,7 @@
         header {
             text-align: center;
             padding: 8px 0;
-            margin-bottom: 15px;
+            margin-bottom: 20px; /* Увеличил отступ снизу на 5px */
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             flex-shrink: 0;
             position: relative;
@@ -147,7 +147,7 @@
             display: flex;
             flex-direction: column;
             flex: 1;
-            gap: 15px;
+            gap: 20px; /* Увеличил отступ между секциями */
             overflow: hidden;
         }
         
@@ -161,7 +161,7 @@
         }
         
         .side-panel {
-            flex: 0.9;
+            flex: 0.8; /* Уменьшил ширину боковых панелей на 10px */
             background: #191414;
             border-radius: 12px;
             padding: 15px;
@@ -169,13 +169,13 @@
             flex-direction: column;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            min-width: 240px;
+            min-width: 230px; /* Уменьшил минимальную ширину */
             overflow: hidden;
             transition: all 0.3s ease;
         }
         
         .game-area {
-            flex: 3;
+            flex: 3.4; /* Увеличил игровую область */
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -315,6 +315,106 @@
             text-align: center;
         }
         
+        /* Стили для списка игр */
+        .game-list {
+            list-style: none;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(29, 185, 84, 0.3) #191414;
+            padding-right: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .game-list::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .game-list::-webkit-scrollbar-track {
+            background: #191414;
+        }
+        
+        .game-list::-webkit-scrollbar-thumb {
+            background-color: rgba(29, 185, 84, 0.3);
+            border-radius: 5px;
+        }
+        
+        .game-list li {
+            padding: 10px 12px;
+            margin: 4px 0;
+            background: rgba(40, 40, 40, 0.8);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 3px solid #1DB954;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .game-list li:hover {
+            background: rgba(29, 185, 84, 0.2);
+            transform: translateX(-3px);
+        }
+        
+        .game-list li.active {
+            background: rgba(29, 185, 84, 0.3);
+            border-left: 3px solid #1DB954;
+            box-shadow: 0 0 10px rgba(29, 185, 84, 0.3);
+        }
+        
+        .game-icon {
+            margin-right: 10px;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Стили для загрузки своей игры */
+        .custom-game-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .custom-game-input {
+            width: 100%;
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            outline: none;
+            margin-bottom: 8px;
+        }
+        
+        .custom-game-input:focus {
+            border-color: #1DB954;
+        }
+        
+        .custom-game-btn {
+            width: 100%;
+            background: rgba(29, 185, 84, 0.3);
+            border: 1px solid #1DB954;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .custom-game-btn:hover {
+            background: rgba(29, 185, 84, 0.5);
+        }
+        
         /* Стили для чата */
         .chat-container {
             flex: 1;
@@ -359,12 +459,12 @@
         }
         
         .message {
-            padding: 6px 8px;
-            margin: 4px 0;
+            padding: 8px 10px; /* Увеличил отступы в сообщениях */
+            margin: 5px 0; /* Увеличил отступы между сообщениями */
             background: rgba(40, 40, 40, 0.6);
             border-radius: 8px;
-            font-size: 0.8rem;
-            line-height: 1.2;
+            font-size: 0.9rem; /* Увеличил размер шрифта */
+            line-height: 1.3; /* Увеличил межстрочный интервал */
             word-wrap: break-word;
             position: relative;
             transition: all 0.2s ease;
@@ -381,7 +481,7 @@
         }
         
         .message-time {
-            font-size: 0.7rem;
+            font-size: 0.75rem; /* Немного увеличил время */
             color: #888;
             margin-left: 5px;
         }
@@ -398,7 +498,7 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             padding: 2px 6px;
-            font-size: 0.7rem;
+            font-size: 0.75rem; /* Немного увеличил реакции */
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
@@ -412,7 +512,7 @@
         }
         
         .reaction-count {
-            font-size: 0.65rem;
+            font-size: 0.7rem; /* Немного увеличил счетчик реакций */
             color: #B3B3B3;
         }
         
@@ -491,7 +591,7 @@
             color: white;
             padding: 8px 10px 8px 80px;
             border-radius: 15px;
-            font-size: 0.8rem;
+            font-size: 0.85rem; /* Немного увеличил шрифт ввода */
             outline: none;
             height: 36px;
         }
@@ -556,7 +656,7 @@
             cursor: not-allowed;
         }
         
-        /* ОКНО ЭМОДЗИ */
+        /* ОКНО ЭМОДЗИ - ИСПРАВЛЕНО ПОЛОЖЕНИЕ */
         .emoji-picker {
             position: absolute;
             bottom: 45px;
@@ -659,7 +759,7 @@
             transform: scale(1.1);
         }
         
-        /* Окно поиска GIF */
+        /* Окно поиска GIF - ИСПРАВЛЕНО ПОЛОЖЕНИЕ */
         .gif-picker {
             position: absolute;
             bottom: 45px;
@@ -1022,7 +1122,7 @@
             
             .emoji-picker, .gif-picker {
                 width: 250px;
-                left: -50px;
+                left: 0;
             }
         }
     </style>
@@ -1075,6 +1175,38 @@
                         </div>
                     </div>
                     
+                    <!-- МЕНЮ С ИГРАМИ -->
+                    <div class="panel-section">
+                        <h3><i class="fas fa-gamepad"></i> Игры</h3>
+                        <ul class="game-list">
+                            <li data-game="tileman" data-url="https://www.crazygames.ru/embed/tileman-io">
+                                <div style="display: flex; align-items: center;">
+                                    <span class="game-icon"><i class="fas fa-border-all"></i></span> Tileman
+                                </div>
+                            </li>
+                            <li data-game="ovo" data-url="https://games.crazygames.com/ru_RU/ovo-online/index.html?isNewUser=false&v=1.341">
+                                <div style="display: flex; align-items: center;">
+                                    <span class="game-icon"><i class="fas fa-egg"></i></span> OVO Online
+                                </div>
+                            </li>
+                            <li data-game="openguessr" data-url="https://games.crazygames.com/ru_RU/openguessr/index.html?isNewUser=false&v=1.341">
+                                <div style="display: flex; align-items: center;">
+                                    <span class="game-icon"><i class="fas fa-globe-americas"></i></span> OpenGuessr
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- ДОБАВЛЕНИЕ СВОЕЙ ИГРЫ -->
+                    <div class="panel-section">
+                        <h3><i class="fas fa-plus-circle"></i> Добавить свою игру</h3>
+                        <input type="text" class="custom-game-input" id="customGameUrl" placeholder="Вставьте URL игры">
+                        <button class="custom-game-btn" id="addCustomGame">
+                            <i class="fas fa-plus"></i> Добавить игру
+                        </button>
+                    </div>
+                    
+                    <!-- РАДИОСТАНЦИИ (5 вместо 8) -->
                     <div class="panel-section">
                         <h3><i class="fas fa-music"></i> Радиостанции</h3>
                         <ul class="station-list">
@@ -1096,7 +1228,7 @@
                             </li>
                             <li data-station="chillhop">
                                 <div style="display: flex; align-items: center;">
-                                    <span class="station-icon"><i class="fas fa-moon"></i></span> Chillhop Radio
+                                    <span class="station-icon"><i class="fas fa-headphones"></i></span> Chillhop Radio
                                 </div>
                                 <div class="station-likes">
                                     <span class="likes-count">0</span> <i class="fas fa-heart"></i>
@@ -1118,44 +1250,21 @@
                                     <span class="likes-count">0</span> <i class="fas fa-heart"></i>
                                 </div>
                             </li>
-                            <li data-station="jazz">
-                                <div style="display: flex; align-items: center;">
-                                    <span class="station-icon"><i class="fas fa-music"></i></span> Jazz24
-                                </div>
-                                <div class="station-likes">
-                                    <span class="likes-count">0</span> <i class="fas fa-heart"></i>
-                                </div>
-                            </li>
-                            <li data-station="lofihiphop">
-                                <div style="display: flex; align-items: center;">
-                                    <span class="station-icon"><i class="fas fa-headphones"></i></span> LoFi Hip Hop
-                                </div>
-                                <div class="station-likes">
-                                    <span class="likes-count">0</span> <i class="fas fa-heart"></i>
-                                </div>
-                            </li>
-                            <li data-station="halloween">
-                                <div style="display: flex; align-items: center;">
-                                    <span class="station-icon"><i class="fas fa-ghost"></i></span> Halloween Radio
-                                </div>
-                                <div class="station-likes">
-                                    <span class="likes-count">0</span> <i class="fas fa-heart"></i>
-                                </div>
-                            </li>
                         </ul>
                     </div>
                 </div>
                 
                 <div class="game-area">
                     <div class="game-wrapper crt-effect">
-                        <!-- Пытаемся встроить игру через iframe -->
+                        <!-- Игра будет загружаться здесь -->
                         <iframe 
                             src="https://www.crazygames.ru/embed/tileman-io" 
                             class="game-frame"
                             width="100%" 
                             height="100%"
                             allow="fullscreen"
-                            frameborder="0">
+                            frameborder="0"
+                            id="gameFrame">
                         </iframe>
                     </div>
                     
@@ -1224,7 +1333,7 @@
                                 <i class="fas fa-paper-plane"></i>
                             </button>
                             
-                            <!-- ОКНО ЭМОДЗИ С ПОИСКОМ -->
+                            <!-- ОКНО ЭМОДЗИ С ПОИСКОМ - ПОЛОЖЕНИЕ ИСПРАВЛЕНО -->
                             <div class="emoji-picker" id="emoji-picker">
                                 <input type="text" class="emoji-search" id="emoji-search" placeholder="Поиск эмодзи...">
                                 <div class="emoji-categories">
@@ -1238,7 +1347,7 @@
                                 </div>
                             </div>
                             
-                            <!-- ОКНО ПОИСКА GIF -->
+                            <!-- ОКНО ПОИСКА GIF - ПОЛОЖЕНИЕ ИСПРАВЛЕНО -->
                             <div class="gif-picker" id="gif-picker">
                                 <input type="text" class="gif-search" id="gif-search" placeholder="Поиск GIF...">
                                 <div class="gif-trending">
@@ -1274,7 +1383,7 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // Объект с радиостанциями
+        // Объект с радиостанциями (5 вместо 8)
         const radioStations = {
             lofi: {
                 name: "LoFi Girl",
@@ -1301,7 +1410,7 @@
                 currentTrack: "Chill Beats",
                 currentArtist: "Chillhop Music",
                 quality: "128kbps",
-                icon: "fas fa-moon"
+                icon: "fas fa-headphones"
             },
             gaga: {
                 name: "Lady Gaga Radio",
@@ -1320,33 +1429,6 @@
                 currentArtist: "KISS FM",
                 quality: "128kbps",
                 icon: "fas fa-heart"
-            },
-            jazz: {
-                name: "Jazz24",
-                url: "https://knkx-live-a.edge.audiocdn.com/6285_128k",
-                description: "Лучшие джазовые композиции",
-                currentTrack: "Smooth Jazz",
-                currentArtist: "Jazz Master",
-                quality: "192kbps",
-                icon: "fas fa-music"
-            },
-            lofihiphop: {
-                name: "LoFi Hip Hop",
-                url: "https://stream-158.zeno.fm/0r0xa792kwzuv",
-                description: "Лучшие хип-хоп биты без авторских прав",
-                currentTrack: "Hip Hop Beats",
-                currentArtist: "LoFi Artist",
-                quality: "128kbps",
-                icon: "fas fa-headphones"
-            },
-            halloween: {
-                name: "Halloween Radio",
-                url: "https://radio1.streamserver.link:8000/hrm-aac",
-                description: "Музыка для Хэллоуина и ужастиков",
-                currentTrack: "Spooky Sounds",
-                currentArtist: "Halloween FM",
-                quality: "128kbps",
-                icon: "fas fa-ghost"
             }
         };
 
@@ -1387,6 +1469,10 @@
             const emojiCategoryBtns = document.querySelectorAll('.emoji-category');
             const gifTrendingBtns = document.querySelectorAll('.gif-trending-btn');
             const stationItems = document.querySelectorAll('.station-list li');
+            const gameItems = document.querySelectorAll('.game-list li');
+            const customGameUrl = document.getElementById('customGameUrl');
+            const addCustomGame = document.getElementById('addCustomGame');
+            const gameFrame = document.getElementById('gameFrame');
             const playerSection = document.getElementById('player-section');
             const playButton = document.getElementById('play-btn');
             const prevButton = document.getElementById('prev-btn');
@@ -1412,6 +1498,77 @@
             // Обновление онлайн-статистики
             updateOnlineCount();
             setInterval(updateOnlineCount, 10000);
+            
+            // Обработчики для игр
+            gameItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const gameUrl = this.getAttribute('data-url');
+                    
+                    // Сброс активного класса
+                    gameItems.forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // Установка активного класса
+                    this.classList.add('active');
+                    
+                    // Загрузка игры в iframe
+                    gameFrame.src = gameUrl;
+                });
+            });
+            
+            // Обработчик для добавления своей игры
+            addCustomGame.addEventListener('click', function() {
+                const url = customGameUrl.value.trim();
+                if (url) {
+                    // Создаем новый элемент списка
+                    const gameList = document.querySelector('.game-list');
+                    const newGameItem = document.createElement('li');
+                    newGameItem.setAttribute('data-game', 'custom');
+                    newGameItem.setAttribute('data-url', url);
+                    
+                    // Извлекаем название из URL
+                    let gameName = 'Моя игра';
+                    try {
+                        const urlObj = new URL(url);
+                        const pathParts = urlObj.pathname.split('/');
+                        if (pathParts.length > 1) {
+                            gameName = pathParts[pathParts.length - 2].replace(/-/g, ' ');
+                            gameName = gameName.charAt(0).toUpperCase() + gameName.slice(1);
+                        }
+                    } catch (e) {
+                        // Если URL невалидный, используем стандартное имя
+                    }
+                    
+                    newGameItem.innerHTML = `
+                        <div style="display: flex; align-items: center;">
+                            <span class="game-icon"><i class="fas fa-gamepad"></i></span> ${gameName}
+                        </div>
+                    `;
+                    
+                    // Добавляем обработчик события
+                    newGameItem.addEventListener('click', function() {
+                        const gameUrl = this.getAttribute('data-url');
+                        
+                        // Сброс активного класса
+                        document.querySelectorAll('.game-list li').forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        
+                        // Установка активного класса
+                        this.classList.add('active');
+                        
+                        // Загрузка игры в iframe
+                        gameFrame.src = gameUrl;
+                    });
+                    
+                    gameList.appendChild(newGameItem);
+                    customGameUrl.value = '';
+                    
+                    // Автоматически выбираем новую игру
+                    newGameItem.click();
+                }
+            });
             
             // Функции для работы с аутентификацией
             function updateAuthUI(user) {
