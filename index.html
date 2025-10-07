@@ -149,6 +149,7 @@
             border-left: 3px solid #1DB954;
             font-size: 0.9rem;
             line-height: 1.4;
+            word-wrap: break-word;
         }
 
         .message-user {
@@ -162,6 +163,18 @@
             border-left: 3px solid #1DB954;
             text-align: center;
             font-style: italic;
+        }
+
+        .message-moderator .message-user {
+            color: #00FF00;
+        }
+
+        .message-broadcaster .message-user {
+            color: #E74C3C;
+        }
+
+        .message-subscriber .message-user {
+            color: #9B59B6;
         }
 
         .chat-input-container {
@@ -214,6 +227,25 @@
             background: rgba(40, 40, 40, 0.4);
             border-radius: 6px;
         }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            color: #B3B3B3;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #FF5722;
+        }
+
+        .status-dot.connected {
+            background: #1DB954;
+        }
         
         @media (max-width: 900px) {
             .content {
@@ -241,7 +273,10 @@
                 <h1>Прямой эфир: Sobiratei</h1>
             </div>
             <div class="header-right">
-                <div style="width: 100px;"></div>
+                <div class="connection-status">
+                    <div class="status-dot" id="status-dot"></div>
+                    <span id="status-text">Подключение...</span>
+                </div>
             </div>
         </header>
         
@@ -253,33 +288,17 @@
             <div class="chat-container">
                 <div class="chat-header">
                     <i class="fas fa-comments"></i>
-                    <h3>Чат стрима</h3>
+                    <h3>Чат Twitch</h3>
                 </div>
                 <div class="chat-content">
                     <div class="chat-messages" id="chat-messages">
                         <div class="message message-system">
-                            Чат Twitch подключен. Сообщения будут отображаться здесь.
+                            Подключаемся к чату Twitch...
                         </div>
-                        <div class="message">
-                            <span class="message-user">Sobiratei:</span>
-                            Всем привет! Спасибо что присоединились к стриму!
-                        </div>
-                        <div class="message">
-                            <span class="message-user">Зритель123:</span>
-                            Отличный стрим! 🔥
-                        </div>
-                        <div class="message">
-                            <span class="message-user">GamerPro:</span>
-                            Интересный геймплей!
-                        </div>
-                    </div>
-                    
-                    <div class="chat-notice">
-                        💬 Чат работает в режиме просмотра. Для отправки сообщений перейдите на Twitch
                     </div>
                     
                     <div class="chat-input-container">
-                        <input type="text" class="chat-input" id="chat-input" placeholder="Чат доступен только на Twitch..." disabled>
+                        <input type="text" class="chat-input" id="chat-input" placeholder="Для отправки сообщений войдите в систему..." disabled>
                         <button class="chat-send-btn" id="chat-send-btn" disabled>
                             <i class="fas fa-paper-plane"></i>
                         </button>
@@ -291,6 +310,8 @@
 
     <!-- Load the Twitch embed script -->
     <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+    <!-- tmi.js for Twitch chat -->
+    <script src="https://cdn.jsdelivr.net/npm/tmi.js@1.8.5/dist/tmi.min.js"></script>
 
     <script>
         // Create Twitch Player
@@ -301,28 +322,95 @@
             parent: ["deyniik.github.io"]
         });
 
-        // Simulate chat messages (in real app this would connect to Twitch chat API)
-        function addChatMessage(user, message) {
-            const chatMessages = document.getElementById('chat-messages');
+        // Twitch Chat Connection
+        const client = new tmi.Client({
+            options: { debug: false },
+            connection: {
+                reconnect: true,
+                secure: true
+            },
+            channels: ['sobiratei']
+        });
+
+        const chatMessages = document.getElementById('chat-messages');
+        const statusDot = document.getElementById('status-dot');
+        const statusText = document.getElementById('status-text');
+
+        // Add message to chat
+        function addChatMessage(user, message, tags = {}) {
             const messageElement = document.createElement('div');
             messageElement.className = 'message';
-            messageElement.innerHTML = `<span class="message-user">${user}:</span> ${message}`;
+            
+            // Add special classes based on user type
+            if (tags.badges && tags.badges.broadcaster) {
+                messageElement.classList.add('message-broadcaster');
+            } else if (tags.badges && tags.badges.moderator) {
+                messageElement.classList.add('message-moderator');
+            } else if (tags.badges && tags.badges.subscriber) {
+                messageElement.classList.add('message-subscriber');
+            }
+
+            let displayName = tags['display-name'] || user;
+            messageElement.innerHTML = `<span class="message-user">${displayName}:</span> ${message}`;
+            
             chatMessages.appendChild(messageElement);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // Simulate some chat activity
-        setTimeout(() => {
-            addChatMessage('FunnyViewer', 'LOL это смешно 😂');
-        }, 3000);
+        // Add system message
+        function addSystemMessage(message) {
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message message-system';
+            messageElement.textContent = message;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
 
-        setTimeout(() => {
-            addChatMessage('StreamFan', 'Какой крутой момент!');
-        }, 6000);
+        // Update connection status
+        function updateStatus(connected, message) {
+            statusDot.className = 'status-dot' + (connected ? ' connected' : '');
+            statusText.textContent = message;
+        }
 
-        setTimeout(() => {
-            addChatMessage('Sobiratei', 'Спасибо за поддержку ребята!');
-        }, 9000);
+        // Connect to Twitch chat
+        client.connect().catch(console.error);
+
+        // Chat events
+        client.on('connected', (address, port) => {
+            updateStatus(true, 'Подключен к чату');
+            addSystemMessage('✅ Успешно подключились к чату Twitch!');
+        });
+
+        client.on('disconnected', (reason) => {
+            updateStatus(false, 'Отключен');
+            addSystemMessage('❌ Отключились от чата: ' + reason);
+        });
+
+        client.on('message', (channel, tags, message, self) => {
+            if (self) return; // Ignore our own messages
+            
+            addChatMessage(tags.username, message, tags);
+        });
+
+        client.on('join', (channel, username, self) => {
+            if (self) return;
+            addSystemMessage(`👋 ${username} присоединился к чату`);
+        });
+
+        client.on('part', (channel, username, self) => {
+            if (self) return;
+            addSystemMessage(`👋 ${username} покинул чат`);
+        });
+
+        // Handle connection errors
+        client.on('error', (error) => {
+            console.error('Chat error:', error);
+            updateStatus(false, 'Ошибка подключения');
+            addSystemMessage('❌ Ошибка подключения к чату');
+        });
+
+        // Simulate initial connection status
+        updateStatus(false, 'Подключение...');
     </script>
 </body>
 </html>
