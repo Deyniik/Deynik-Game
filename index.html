@@ -125,126 +125,10 @@
             color: #1DB954;
         }
 
-        .chat-content {
+        .twitch-chat {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 10px;
-            overflow-y: auto;
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            margin-bottom: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .message {
-            padding: 8px 12px;
-            background: rgba(40, 40, 40, 0.6);
-            border-radius: 8px;
-            border-left: 3px solid #1DB954;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            word-wrap: break-word;
-        }
-
-        .message-user {
-            font-weight: bold;
-            color: #1DB954;
-            margin-right: 5px;
-        }
-
-        .message-system {
-            background: rgba(29, 185, 84, 0.2);
-            border-left: 3px solid #1DB954;
-            text-align: center;
-            font-style: italic;
-        }
-
-        .message-moderator .message-user {
-            color: #00FF00;
-        }
-
-        .message-broadcaster .message-user {
-            color: #E74C3C;
-        }
-
-        .message-subscriber .message-user {
-            color: #9B59B6;
-        }
-
-        .chat-input-container {
-            display: flex;
-            gap: 8px;
-            margin-top: auto;
-        }
-
-        .chat-input {
-            flex: 1;
-            background: rgba(40, 40, 40, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        .chat-input:focus {
-            border-color: #1DB954;
-        }
-
-        .chat-send-btn {
-            background: rgba(29, 185, 84, 0.3);
-            border: 1px solid #1DB954;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .chat-send-btn:hover:not(:disabled) {
-            background: rgba(29, 185, 84, 0.5);
-        }
-
-        .chat-send-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .chat-notice {
-            text-align: center;
-            color: #B3B3B3;
-            font-size: 0.8rem;
-            margin-top: 10px;
-            padding: 8px;
-            background: rgba(40, 40, 40, 0.4);
-            border-radius: 6px;
-        }
-
-        .connection-status {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.8rem;
-            color: #B3B3B3;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #FF5722;
-        }
-
-        .status-dot.connected {
-            background: #1DB954;
+            width: 100%;
+            border: none;
         }
         
         @media (max-width: 900px) {
@@ -254,7 +138,7 @@
             
             .chat-container {
                 width: 100%;
-                height: 400px;
+                height: 500px;
             }
         }
     </style>
@@ -273,10 +157,7 @@
                 <h1>Прямой эфир: Sobiratei</h1>
             </div>
             <div class="header-right">
-                <div class="connection-status">
-                    <div class="status-dot" id="status-dot"></div>
-                    <span id="status-text">Подключение...</span>
-                </div>
+                <div style="width: 100px;"></div>
             </div>
         </header>
         
@@ -290,28 +171,18 @@
                     <i class="fas fa-comments"></i>
                     <h3>Чат Twitch</h3>
                 </div>
-                <div class="chat-content">
-                    <div class="chat-messages" id="chat-messages">
-                        <div class="message message-system">
-                            Подключаемся к чату Twitch...
-                        </div>
-                    </div>
-                    
-                    <div class="chat-input-container">
-                        <input type="text" class="chat-input" id="chat-input" placeholder="Для отправки сообщений войдите в систему..." disabled>
-                        <button class="chat-send-btn" id="chat-send-btn" disabled>
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
-                </div>
+                <iframe
+                    class="twitch-chat"
+                    src="https://www.twitch.tv/embed/sobiratei/chat?parent=deyniik.github.io&darkpopout"
+                    height="100%"
+                    width="100%">
+                </iframe>
             </div>
         </div>
     </div>
 
     <!-- Load the Twitch embed script -->
     <script src="https://player.twitch.tv/js/embed/v1.js"></script>
-    <!-- tmi.js for Twitch chat -->
-    <script src="https://cdn.jsdelivr.net/npm/tmi.js@1.8.5/dist/tmi.min.js"></script>
 
     <script>
         // Create Twitch Player
@@ -321,96 +192,6 @@
             height: "100%",
             parent: ["deyniik.github.io"]
         });
-
-        // Twitch Chat Connection
-        const client = new tmi.Client({
-            options: { debug: false },
-            connection: {
-                reconnect: true,
-                secure: true
-            },
-            channels: ['sobiratei']
-        });
-
-        const chatMessages = document.getElementById('chat-messages');
-        const statusDot = document.getElementById('status-dot');
-        const statusText = document.getElementById('status-text');
-
-        // Add message to chat
-        function addChatMessage(user, message, tags = {}) {
-            const messageElement = document.createElement('div');
-            messageElement.className = 'message';
-            
-            // Add special classes based on user type
-            if (tags.badges && tags.badges.broadcaster) {
-                messageElement.classList.add('message-broadcaster');
-            } else if (tags.badges && tags.badges.moderator) {
-                messageElement.classList.add('message-moderator');
-            } else if (tags.badges && tags.badges.subscriber) {
-                messageElement.classList.add('message-subscriber');
-            }
-
-            let displayName = tags['display-name'] || user;
-            messageElement.innerHTML = `<span class="message-user">${displayName}:</span> ${message}`;
-            
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Add system message
-        function addSystemMessage(message) {
-            const messageElement = document.createElement('div');
-            messageElement.className = 'message message-system';
-            messageElement.textContent = message;
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Update connection status
-        function updateStatus(connected, message) {
-            statusDot.className = 'status-dot' + (connected ? ' connected' : '');
-            statusText.textContent = message;
-        }
-
-        // Connect to Twitch chat
-        client.connect().catch(console.error);
-
-        // Chat events
-        client.on('connected', (address, port) => {
-            updateStatus(true, 'Подключен к чату');
-            addSystemMessage('✅ Успешно подключились к чату Twitch!');
-        });
-
-        client.on('disconnected', (reason) => {
-            updateStatus(false, 'Отключен');
-            addSystemMessage('❌ Отключились от чата: ' + reason);
-        });
-
-        client.on('message', (channel, tags, message, self) => {
-            if (self) return; // Ignore our own messages
-            
-            addChatMessage(tags.username, message, tags);
-        });
-
-        client.on('join', (channel, username, self) => {
-            if (self) return;
-            addSystemMessage(`👋 ${username} присоединился к чату`);
-        });
-
-        client.on('part', (channel, username, self) => {
-            if (self) return;
-            addSystemMessage(`👋 ${username} покинул чат`);
-        });
-
-        // Handle connection errors
-        client.on('error', (error) => {
-            console.error('Chat error:', error);
-            updateStatus(false, 'Ошибка подключения');
-            addSystemMessage('❌ Ошибка подключения к чату');
-        });
-
-        // Simulate initial connection status
-        updateStatus(false, 'Подключение...');
     </script>
 </body>
 </html>
