@@ -6,7 +6,6 @@
     <title>Deynik Stream - Sobiratei</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📺</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -73,20 +72,11 @@
             justify-content: center;
         }
         
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex: 1;
-            justify-content: flex-end;
-        }
-        
         h1 {
             font-size: 1.8rem;
             color: #1DB954;
             text-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
             letter-spacing: 2px;
-            margin-bottom: 5px;
         }
         
         .content {
@@ -95,7 +85,6 @@
             align-items: stretch;
             flex: 1;
             gap: 15px;
-            margin-bottom: 10px;
             overflow: hidden;
         }
         
@@ -107,26 +96,12 @@
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            position: relative;
         }
         
-        #twitch-embed {
+        .stream-player {
             width: 100%;
             flex: 1;
             min-height: 0;
-        }
-        
-        .stream-info {
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .stream-title {
-            font-size: 1.2rem;
-            color: #1DB954;
-            margin-bottom: 5px;
         }
         
         .chat-container {
@@ -136,7 +111,6 @@
             background: #191414;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             min-width: 300px;
         }
@@ -151,7 +125,7 @@
             color: #1DB954;
         }
         
-        .twitch-chat {
+        .chat-frame {
             flex: 1;
             width: 100%;
             border: none;
@@ -165,26 +139,13 @@
             .chat-container {
                 width: 100%;
                 height: 300px;
-                margin-bottom: 12px;
-            }
-            
-            .header-center {
-                flex: 1;
-            }
-            
-            h1 {
-                font-size: 1.5rem;
-            }
-            
-            .service-logo {
-                font-size: 1rem;
             }
         }
     </style>
 </head>
-<body class="retro-theme">
+<body>
     
-    <div class="container" id="mainContainer">
+    <div class="container">
         <header>
             <div class="header-left">
                 <div class="service-logo">
@@ -202,10 +163,11 @@
         
         <div class="content">
             <div class="stream-container">
-                <div id="twitch-embed"></div>
-                <div class="stream-info">
-                    <h2 class="stream-title">Sobiratei - Прямой эфир</h2>
-                </div>
+                <iframe
+                    src="https://player.twitch.tv/?channel=sobiratei&parent=localhost&autoplay=true"
+                    class="stream-player"
+                    allowfullscreen>
+                </iframe>
             </div>
             
             <div class="chat-container">
@@ -214,26 +176,12 @@
                     <h3>Чат Twitch</h3>
                 </div>
                 <iframe
-                    class="twitch-chat"
-                    src="https://www.twitch.tv/embed/sobiratei/chat?parent=twitch.tv&darkpopout"
-                    height="100%"
-                    width="100%">
+                    class="chat-frame"
+                    src="https://www.twitch.tv/embed/sobiratei/chat?parent=localhost&darkpopout">
                 </iframe>
             </div>
         </div>
     </div>
 
-    <!-- Load the Twitch embed script -->
-    <script src="https://player.twitch.tv/js/embed/v1.js"></script>
-
-    <script>
-        // Создаем Twitch.Player объект
-        const player = new Twitch.Player("twitch-embed", {
-            channel: "sobiratei",
-            width: "100%",
-            height: "100%",
-            parent: ["twitch.tv"]
-        });
-    </script>
 </body>
 </html>
